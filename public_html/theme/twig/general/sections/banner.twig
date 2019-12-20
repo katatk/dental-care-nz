@@ -1,0 +1,27 @@
+{% set classes = ["container-fluid", "banner"] %}
+
+{% if page.isHomepage %}
+  {% set classes = classes | merge(["home-banner"]) %}
+{% endif %}
+
+<div class="{{ classes|join(" ") }}" style="{% if page.bannerImage.getFullLink() != null %}
+background-image: url('{{ page.bannerImage.getFullLink()|raw }}') {% else %} background-image: url('/theme/images/banner.jpg'){% endif %}">
+
+{{ page.bannerImage.tag()|raw }}
+
+  {% if page.isHomepage %}
+    <div class="container px-0 h-100 d-flex flex-column align-items-start justify-content-center">
+      {% if page.bannerTitle != '' %}
+        <h2>{{ page.bannerTitle }}</h2>
+      {% else %}
+        <h2>{{ page.title|raw }}</h2>
+      {% endif %}
+      {% if page.bannerText != '' %}
+        <div class="text-white d-none d-lg-block px-2">{{ page.bannerText|raw }}</div>
+      {% endif %}
+      {% if page.bannerButton != '' %}
+        <a class="button d-none d-lg-inline-block form-button">{{ page.bannerButton }}</a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>

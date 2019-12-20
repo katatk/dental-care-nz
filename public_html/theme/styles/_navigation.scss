@@ -1,0 +1,458 @@
+// link padding (to calculate underline size hover/active)
+$horizontal-padding: 1.5rem;
+$db-horizontal-padding: $horizontal-padding * 2;
+
+header {
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  @include below($NAV-BREAKPOINT) {
+    background-color: #fff;
+    box-shadow: 0 0 46px 0 rgba(181,210,217,.4);
+
+  }
+
+
+  @include above($NAV-BREAKPOINT) {
+    position: absolute;
+    background-color: transparent;
+
+
+    &.out-of-sight {
+      opacity: 0;
+      transition: opacity 0.25s ease-in;
+    }
+
+    &.shrink {
+      background-color: #fff;
+      opacity: 1;
+      transition: opacity 0.25s ease-in;
+      position: fixed;
+      padding: 0;
+      box-shadow: 0 0 46px 0 rgba(181,210,217,.4);
+
+          .logo-container .navbar-brand .logo {
+          width: 243px;
+        }
+    }
+  }
+
+
+  .phone {
+    font-size: 1.5rem;
+    font-weight: 600;
+
+    @include above($NAV-BREAKPOINT) {
+      font-size: 1.3rem;
+    }
+
+
+    @include above($LAPTOP-BREAKPOINT) {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+nav[class*="navbar-expand-"] {
+  & > .container {
+    @include above($NAV-BREAKPOINT) {
+      align-items: stretch;
+      height: 100%;
+      align-items: center;
+    }
+
+
+    .d-flex {
+      @include below($NAV-BREAKPOINT) {
+        width: 100%;
+      }
+    }
+  }
+
+  // the ul tag
+  .navbar-nav {
+    margin-top: 0;
+    width: 100%;
+    padding-top: 1.5rem;
+
+    @include above($NAV-BREAKPOINT) {
+      padding-top: 0;
+      justify-content: center;
+    }
+
+
+    // the li tag
+    .nav-item {
+      text-transform: uppercase;
+      font-weight: 400;
+
+      @include above($NAV-BREAKPOINT) {
+        padding-left: 0;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+        padding: 0;
+      }
+
+
+      // the a tag
+      .nav-link {
+        z-index: 1;
+        text-decoration: none;
+        line-height: 1;
+        font-weight: 600;
+        color: #fff;
+        font-family: $HEADING-FONT;
+        text-transform: uppercase;
+        text-align: left;
+        font-size: 1.5rem;
+        padding: 1.5rem 0 1.5rem 4rem;
+        display: inline-block;
+        text-align: left;
+        width: 100%;
+        transition: none;
+
+        @include above($NAV-BREAKPOINT) {
+          z-index: 0;
+          display: inline;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          text-align: center;
+          position: relative;
+          padding: 4rem $horizontal-padding;
+          font-size: 1.3rem;
+          color: $PRIMARY-HIGHLIGHT;
+
+          @include above($LAPTOP-BREAKPOINT) {
+            font-size: 1.5rem;
+          }
+
+
+          &::before {
+            content: '';
+            height: 2px;
+            width: calc(100% - #{$db-horizontal-padding});
+            position: absolute;
+            left: $horizontal-padding;
+            bottom: 0;
+            transform: scaleX(0);
+            transition: all 0.3s ease-in-out 0s;
+            display: inline-block;
+            background-color: $PRIMARY-HIGHLIGHT;
+          }
+
+          &:active,
+          &:hover {
+            &::before {
+              transform: scaleX(1);
+            }
+          }
+        }
+      }
+
+      &.active .nav-link {
+        @include above($NAV-BREAKPOINT) {
+          &::before {
+            content: '';
+            height: 2px;
+            position: absolute;
+            bottom: 0;
+            left: $horizontal-padding;
+            min-width: calc(100% - #{$db-horizontal-padding});
+            -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+            display: inline-block;
+            background-color: $PRIMARY-HIGHLIGHT;
+          }
+        }
+      }
+
+      // dropdown nav
+      &.dropdown {
+        position: relative;
+
+        @include above($NAV-BREAKPOINT) {
+          .nav-link::before {
+            width: calc(100% - #{$horizontal-padding} + 1.7rem + 4px);
+          }
+        }
+
+
+        // @include above($nav-large) {
+        //   .nav-link::before {
+        //     width: calc(100% - 2rem + 1.7rem + 4px);
+        //   }
+        // }
+
+        .dropdown-toggle {
+          margin-left: -28px;
+          font-size: 2.5rem;
+          position: relative;
+          z-index: 2;
+
+          &:hover {
+            color: $PRIMARY-HIGHLIGHT;
+          }
+
+          @include above($NAV-BREAKPOINT) {
+            z-index: unset;
+          }
+
+
+          i {
+            line-height: 1.55rem;
+            padding: 0 1rem;
+            position: relative;
+            top: 1px;
+          }
+
+          @include above($NAV-BREAKPOINT) {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            position: static;
+            margin-left: -13px;
+            padding: 0;
+            font-size: 1em;
+
+            i {
+              padding-right: 0;
+            }
+          }
+        }
+
+        @include above($NAV-BREAKPOINT) {
+          // desktop show sub menu on hover
+          &:hover > .dropdown-menu {
+            .dropdown-item {
+              display: block;
+              visibility: visible;
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.dropdown-menu {
+  display: block;
+  min-width: 100%;
+  left: 0;
+  top: 100%;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background-color: $PRIMARY-HIGHLIGHT;
+
+  &.show {
+    .dropdown-item {
+      display: block;
+      visibility: visible;
+    }
+  }
+
+  .dropdown-item {
+    display: none;
+    visibility: hidden;
+    transition: background-color ease .5s;
+    text-transform: uppercase;
+    line-height: 1;
+    font-weight: 300;
+    color: #fff;
+    font-family: $HEADING-FONT;
+    text-align: left;
+    font-size: 1.5rem;
+    padding: 2.5rem;
+    text-align: center;
+    white-space: nowrap;
+
+    &, &:hover {
+      color: #FFF;
+    }
+
+    @include above($NAV-BREAKPOINT) {
+      padding: 2.5rem;
+
+      &:hover {
+        background-color: $PRIMARY-HOVER;
+      }
+    }
+  }
+
+  @include above($NAV-BREAKPOINT) {
+    &:hover {
+      .dropdown-item {
+        display: block;
+        visibility: visible;
+      }
+    }
+  }
+}
+
+// logo styles
+.logo-container {
+  position: relative;
+  top: -1rem;
+
+  @include above($NAV-BREAKPOINT) {}
+
+
+  // the a class
+  .navbar-brand {
+    display: flex;
+
+    // the img element
+    .logo {
+      height: auto;
+      display: inline-block;
+      width: 243px;
+
+      @include above($NAV-BREAKPOINT) {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// the mobile dropdown
+.navbar-collapse {
+  background-color: rgba($PRIMARY-HIGHLIGHT, 0.95);
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: calc(100% + 1rem);
+  left: 0;
+  width: 100%;
+  height: 400px;
+  justify-content: center;
+  display: flex;
+
+  @include above($LG-BREAKPOINT) {
+    height: 550px;
+  }
+
+
+  @include above($NAV-BREAKPOINT) {
+    height: auto;
+    padding: 0;
+    position: static;
+    width: auto;
+    background-color: transparent;
+  }
+
+
+  &:not(.show) {
+    @include above($NAV-BREAKPOINT) {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &.show {
+    transition: opacity 0.5s ease-in-out 0s;
+    opacity: 1;
+    z-index: 3;
+    visibility: visible;
+  }
+}
+
+// mobile toggler
+.navbar-toggler {
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  left: 0.5rem;
+  margin-left: 3rem;
+
+  &:focus {
+    outline: none;
+  }
+
+  .navbar-toggler-icon {
+    background-image: none;
+    width: 30px;
+    height: 22px;
+    position: relative;
+    cursor: pointer;
+
+    span {
+      display: block;
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      background: $PRIMARY-HIGHLIGHT;
+      border-radius: 9px;
+      opacity: 1;
+      left: 0;
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+      -webkit-transition: 0.25s ease-in-out;
+      transition: 0.25s ease-in-out;
+
+      &:nth-child(1) {
+        top: 0;
+        -webkit-transform-origin: left center;
+        transform-origin: left center;
+      }
+
+      &:nth-child(2) {
+        top: 8px;
+        -webkit-transform-origin: left center;
+        transform-origin: left center;
+      }
+
+      &:nth-child(3) {
+        top: 16px;
+        -webkit-transform-origin: left center;
+        transform-origin: left center;
+      }
+    }
+  }
+
+  /* open styles */
+  .navbar-toggler-icon.open span {
+    &:nth-child(1) {
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
+      top: -2.1px;
+      left: 0;
+    }
+
+    &:nth-child(2) {
+      width: 0;
+      opacity: 0;
+    }
+
+    &:nth-child(3) {
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+      top: 19px; 
+      left: 0;
+    }
+  }
+
+  @include above($NAV-BREAKPOINT) {
+    margin-top: 0;
+  }
+}
+
+.d-custom-none {
+  @include above($NAV-BREAKPOINT) {
+    display: none !important;
+  }
+}
+
+.d-custom-flex {
+  @include above($NAV-BREAKPOINT) {
+    display: flex;
+  }
+}

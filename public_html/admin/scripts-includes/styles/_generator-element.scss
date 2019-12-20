@@ -1,0 +1,492 @@
+/*
+* GeneratorElement and GridElement have so many styles they get to be seperated from the rest of the form element styles
+*/
+
+/* GeneratorElement */
+
+.grouped-generator
+{
+	margin-bottom: 20px;
+
+	.add-item
+	{
+		margin-top: 25px;
+		margin-bottom: 20px;
+	}
+}
+
+section.element
+{
+	overflow: hidden;
+	border-bottom: 1px solid $BORDER-COLOUR;
+	margin: 0;
+	background: $NEUTRAL-COLOUR;
+
+	section.element
+	{
+		border: 1px solid $BORDER-COLOUR;
+		margin-bottom: 10px;
+		background: rgba($LIGHT-COLOUR, 0.5);
+	}
+
+
+	.fields
+	{
+		overflow: hidden;
+		border-top: 1px solid $BORDER-COLOUR;
+		padding: 20px 30px 30px;
+	}
+
+	label.delete
+	{
+		display: none;
+	}
+
+	&.single
+	{
+		border: 0;
+	}
+
+	 > h1
+	{
+		border: none;
+		margin: 0;
+		padding: 13px 20px 13px 55px;
+		font-family: 'Open Sans', sans-serif;
+		font-size: 16px;
+		font-weight: normal;
+		text-align: left;
+
+		@include responsive
+		{
+			overflow: hidden;
+			padding: 5px;
+		}
+
+		span.title
+		{
+			color: $PRIMARY-HIGHLIGHT;
+		}
+
+		.open-arrow
+		{
+			@include responsive
+			{
+				display: inline-block;
+				position: static;
+				vertical-align: middle;
+				margin: 0 10px 0 0;
+			}
+		}
+
+		.remove-item
+		{
+			display: inline-block;
+			top: 0;
+			right: 21px;
+			bottom: 0;
+			vertical-align: middle;
+			height: 22px;
+			margin: auto;
+			padding-right: 25px;
+			background: url('../images/img-del.png') right center no-repeat;
+			color: $WARNING-COLOUR;
+			cursor: pointer;
+			text-decoration: none;
+
+			@include responsive
+			{
+				display: block;
+				margin: 5px;
+				padding-right: 0;
+				padding-left: 25px;
+				background-position: left center;
+				font-size: 0.8em;
+			}
+
+			span
+			{
+				display: none;
+				color: inherit;
+			}
+		}
+
+		.elements
+		{
+			float: right;
+
+			@include responsive
+			{
+				display: flex;
+				float: none;
+				justify-content: space-between;
+			}
+
+			.label
+			{
+				display: inline-block;
+				margin-right: 5px;
+				font-size: 13px;
+				font-weight: normal;
+			}
+
+			.element
+			{
+				display: inline-block;
+			}
+
+			.checkbox .element
+			{
+				float: right;
+			}
+		}
+
+		.form-element
+		{
+			display: inline-block;
+			margin: 0 10px 0 0;
+
+			@include responsive
+			{
+				display: block;
+				margin-left: 37px;
+			}
+		}
+
+		.position
+		{
+			@include responsive
+			{
+				display: none;
+			}
+
+			.element input
+			{
+				max-width: 60px;
+				padding: 3px 5px;
+				font-size: 13px;
+				text-align: center;
+			}
+		}
+
+		.grippy
+		{
+			@include responsive
+			{
+				margin: 0 10px 0 0;
+			}
+		}
+
+		.active
+		{
+			.element
+			{
+				position: relative;
+
+				.style-checkbox
+				{
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					height: 17px;
+					margin: auto;
+					width: 21px;
+					background: url('../images/icon_toggle.png') bottom center no-repeat;
+					cursor: pointer;
+				}
+
+				input[type=checkbox]:checked + .style-checkbox
+				{
+					background-position: top center;
+				}
+			}
+		}
+	}
+
+
+	&.open,
+	.open
+	{
+		display: block;
+
+		 > h1 > .remove-item > span.active
+		{
+			display: block;
+		}
+	}
+	.remove-item span.active.to-delete
+	{
+		display: block;
+	}
+
+	&.single h1
+	{
+		background-color: transparent;
+		color: #000;
+	}
+
+	input[disabled=disabled],
+	select[disabled=disabled],
+	textarea[disabled=disabled]
+	{
+		opacity: 0.5;
+	}
+
+	input[type=file][disabled=disabled]
+	{
+		opacity: 0;
+	}
+
+	section
+	{
+		h1
+		{
+			font-size: 16px;
+		}
+	}
+}// end section.element
+
+/* GridElement */
+
+//generator element styles
+.image-previews,
+.grouped-generator.grid-element
+{
+	> h2
+	{
+		margin-top: 40px;
+		margin-bottom: 15px;
+
+		.button.add
+		{
+			margin-left: 20px;
+		}
+	}
+
+	> .grouped-generator-items > section.element
+	{
+		display: inline-block;
+		border: none;
+		background: $NEUTRAL-COLOUR;
+		font-size: 16px;
+		margin: 2.5px;
+
+		div.mock_table.ui-tabs-panel &
+		{
+			border-bottom: 0;
+			background: $NEUTRAL-COLOUR;
+		}
+
+		&.open
+		{
+			//display: block;
+		}
+
+		> h1
+		{
+			display: inline-block;
+			border: 1px solid $BORDER-COLOUR;
+			// margin-right: 5px;
+			// margin-bottom: 5px;
+			padding-right: 40px;
+
+			@include responsive
+			{
+				padding-right: 5px;
+			}
+
+			.edit
+			{
+				position: absolute;
+				left: 16px;
+				font-size: 20px;
+
+				@include responsive
+				{
+					left: 7px;
+				}
+			}
+
+			.singular-name
+			{
+				display: none;
+			}
+
+			.image
+			{
+				display: block;
+				//more .image styles below
+
+				@include responsive
+				{
+					margin: 20px auto auto;
+				}
+
+				a
+				{
+					display: block;
+					position: relative;
+					height: 100%;
+				}
+
+				img
+				{
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 0;
+					height: auto;
+					margin: auto;
+					max-height: 130px;
+					max-width: 100%;
+					width: auto;
+				}
+			}
+
+			.elements
+			{
+				float: none;
+				text-align: center;
+
+				.grippy
+				{
+					position: absolute;
+					top: -157px;
+					right: -30px;
+
+					@include responsive
+					{
+						top: -170px;
+						right: -5px;
+					};
+				}
+
+				.form-element
+				{
+					@include responsive
+					{
+						display: inline-block;
+						margin-left: 0;
+					}
+				}
+
+				.remove-item
+				{
+					position: absolute;
+					top: 17px;
+					right: -26px;
+					width: 120%;
+					bottom: auto;
+					font-size: 10px;
+
+					@include responsive
+					{
+						box-sizing: border-box;
+						position: relative;
+						top: auto;
+						right: auto;
+						padding-left: 20px;
+						width: 100px;
+					}
+				}
+
+				.to-delete
+				{
+					position: relative;
+					top: 5px;
+
+					@include responsive
+					{
+						position: static;
+					}
+				}
+			}
+		}
+
+		//image
+		h1 .image,
+		&.new-item  h1 .singular-name
+		{
+			vertical-align: top;
+			height: 156px;
+			padding: 14px 0;
+			width: 130px;
+		}
+		&.new-item  h1 .singular-name
+		{
+			display: inline-block;
+			font-size: 16px;
+		}
+
+		.fields-popup
+		{
+			display: flex;
+			position: fixed;
+			justify-content: center;
+			align-items: center;
+			top: 0;
+			left: 0;
+			visibility: hidden;
+			opacity: 0;
+			z-index: 1000;
+			height: 100%;
+			width: 100%;
+			background: rgba(0, 0, 0, 0.2);
+
+			&:target
+			{
+				visibility: visible;
+				opacity: 1;@include vendor-specific(transition, all 0.5s);
+			}
+
+			a.background-close
+			{
+				display: block;
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+			}
+
+			.fields-wrapper
+			{
+				border: 1px solid $BORDER-COLOUR;
+				padding-bottom: $GRID-POPUP-FOOTER-HEIGHT;
+				width: $MAX-WIDTH;
+				background: $LIGHT-COLOUR;
+
+				.fields
+				{
+					overflow: auto;
+					max-height: calc(95vh - #{$GRID-POPUP-FOOTER-HEIGHT});
+				}
+
+				.done
+				{
+					float: left;
+					z-index: 10;
+					margin: 10px 10px 10px 30px;
+					padding: 5px 15px;
+				}
+
+				.fields-bottom
+				{
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					border-top: 1px solid $BORDER-COLOUR;
+					width: 100%;
+				}
+			}
+		}
+
+		.open-arrow
+		{
+			top: 10px;
+			bottom: auto;
+		}
+	}
+}

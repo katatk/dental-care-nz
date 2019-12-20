@@ -1,0 +1,30 @@
+{% extends 'template.twig' %}
+
+{% block content %}
+
+  <div class="container-fluid content-wrapper">
+    <div class="container main-content mb-4">
+
+      <div class="row">
+        <div class="col-12 col-lg-6 mb-4 mb-sm-0 mb-lg-0 pr-lg-0">
+          <div class="bg-white">
+            {% if page.contentTitle != '' %}
+              <h1>{{ page.contentTitle }}</h1>
+            {% endif %}
+            {{ page.content|raw }}
+            <span class="button mt-1">{{ page.buttonText }}
+            </span>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 d-lg-flex align-items-lg-end text-center">
+          {% if page.auxImage.getFullLink() != null %}
+            <div class=""><img src='{{ page.auxImage.getFullLink()|raw }}' alt="{{ constant('SITE_FROM_NAME') }} {{ page.title }}" class="aux-img"></div>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+{% endblock %}
