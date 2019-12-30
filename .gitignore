@@ -4,5 +4,6 @@
 *.zip
 *.gif
 *.svg
+.idea
 
 .remote-sync.json

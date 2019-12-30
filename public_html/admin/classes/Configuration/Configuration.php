@@ -34,6 +34,7 @@
 		public $phone = '';
 		public $email = '';
 		public $address = '';
+		public $openingHours = '';
 
 		//google analytics and tag manager
 		public $analyticsId = '';
@@ -51,6 +52,7 @@
 			static::addProperty(new Property('phone', 'phone', 'string'));
 			static::addProperty(new Property('email', 'email', 'string'));
 			static::addProperty(new Property('address', 'address', 'string'));
+			static::addProperty(new Property('openingHours', 'opening_hours', 'string'));
 			static::addProperty(new Property('analyticsId', 'analytics_id', 'string'));
 			static::addProperty(new Property('tagManagerId', 'tag_manager_id', 'string'));
 			static::addProperty(new Property('googleSiteVerification', 'google_site_verification', 'string'));
@@ -165,6 +167,7 @@
 			$this->addFormElement(new Text('phone', 'Phone'), 'Contact Details');
 			$this->addFormElement((new Text('email', 'Email'))->addValidation(Element::REQUIRED), 'Contact Details');
 			$this->addFormElement(new Textarea('address', 'Address'), 'Contact Details');
+			$this->addFormElement(new Textarea('openingHours', 'Opening Hours'), 'Contact Details');
 			$this->addFormElement(new Text('analyticsId', 'Google Analytics ID'), '3rd Party Integrations');
 			$this->addFormElement(new Text('tagManagerId', 'Google Tag Manager ID'), '3rd Party Integrations');
 			$this->addFormElement(new Text('googleSiteVerification', 'Google Site Verification'), '3rd Party Integrations');

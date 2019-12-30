@@ -12,7 +12,7 @@ header {
 
   @include below($NAV-BREAKPOINT) {
     background-color: #fff;
-    box-shadow: 0 0 46px 0 rgba(181,210,217,.4);
+    box-shadow: 0 0 46px 0 rgba(181, 210, 217, .4);
 
   }
 
@@ -33,11 +33,11 @@ header {
       transition: opacity 0.25s ease-in;
       position: fixed;
       padding: 0;
-      box-shadow: 0 0 46px 0 rgba(181,210,217,.4);
+      box-shadow: 0 0 46px 0 rgba(181, 210, 217, .4);
 
-          .logo-container .navbar-brand .logo {
-          width: 243px;
-        }
+      .logo-container .navbar-brand .logo {
+        width: 243px;
+      }
     }
   }
 
@@ -303,7 +303,8 @@ nav[class*="navbar-expand-"] {
   position: relative;
   top: -1rem;
 
-  @include above($NAV-BREAKPOINT) {}
+  @include above($NAV-BREAKPOINT) {
+  }
 
 
   // the a class
@@ -435,7 +436,7 @@ nav[class*="navbar-expand-"] {
     &:nth-child(3) {
       -webkit-transform: rotate(-45deg);
       transform: rotate(-45deg);
-      top: 19px; 
+      top: 19px;
       left: 0;
     }
   }

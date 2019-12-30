@@ -125,14 +125,6 @@ form:not(.custom-form) {
     }
   }
 
-  // input[type=text],
-  // input[type=tel],
-  // input[type=email],
-  // textarea
-  // {
-  // 	border-bottom: 2px solid $PRIMARY-HIGHLIGHT;
-  // }
-
   input[type=checkbox],
   input[type=radio] {
     box-sizing: border-box;
@@ -201,37 +193,15 @@ form:not(.custom-form) {
   }
 }
 
-// form on the homepage
 
-.Home {
-  #form-2 {
-    .fields {
-      @include above($LG-BREAKPOINT) {
-        .field-wrapper {
-          float: left;
-          display: inline-block;
-          width: 50%;
-
-          &:nth-child(odd) {
-            margin-right: 1.5rem;
-            width: calc(50% - 1.5rem);
-          }
-
-          &:nth-last-child(2) {
-            width: 100%;
-            float: none;
-            margin-right: 0;
-          }
-        }
-
-        .field-wrapper:only-child, .security-wrapper {
-          clear: both;
-        }
-
-        textarea {
-          height: 135px;
-        }
-      }
-    }
-  }
+// search box
+#search {
+  border: 1px solid $BORDER-COLOUR;
+  width: auto;
+  font-size: 1.6rem;
+  padding: 0.4rem 3.5rem 0.4rem 1rem;
+  background: #fff url("/theme/images/search.svg") no-repeat right 0.5rem (center / 8%);
+  font-weight: 300;
+  background-size: 20px 20px;
 }
+

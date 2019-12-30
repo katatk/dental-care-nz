@@ -20,7 +20,7 @@
     <link rel="shortcut icon" href="/favicon.ico"/>
     {% block canonical_link %}{% endblock %}
     {# get fonts early to reduce content flash. Still need set in _setup.css as well #}
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans:400,700|Montserrat:300,400&display=swap" rel="stylesheet">
     <script type="text/javascript">
       // add this immediately so elements which are initially hidden based on presence of javascript don't 'flash'
       (function() {
@@ -178,25 +178,29 @@
 
               <img src="/theme/images/logo-footer.png" alt="{{ constant('SITE_FROM_NAME') }}" class="img-fluid">
 
+              <div class="d-none d-sm-block mt-7">
               {% include 'general/sections/search-form.twig' %}
-
+              </div>
             </div>
 
-            <div class="col-12 order-1 order-lg-2 d-flex col-lg-4 flex-column justify-content-start align-items-center text-center">
+            <div class="col-12 order-1 order-lg-2 d-flex col-lg-4 flex-column justify-content-start align-items-center text-center text-lg-left">
               <h4>Committed to dental well-being</h4>
               <p>
-                <a class="" href="mailto:{{ config.getPhoneDigits() }}">{{ config.phone }}</a><br>
+                <a class="" href="mailto:{{ config.getPhoneDigits() }}">
+                  <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="20" height="15" fill="white" stroke="" viewBox="0 2.4 20 15.2">
+                    <path d="M18.2 2.4H1.8C0.8 2.4 0 3.2 0 4.1v11.7c0 1 0.8 1.8 1.8 1.8h16.5c1 0 1.8-0.8 1.8-1.8V4.1C20 3.2 19.2 2.4 18.2 2.4zM18 3.6l-8 8 -8-8H18zM1.2 15.6V4.4L6.8 10 1.2 15.6zM2 16.4l5.6-5.6 2 2c0.2 0.2 0.6 0.2 0.8 0l1.9-1.9 5.6 5.6H2zM18.8 15.6L13.2 10l5.6-5.6V15.6z"/></svg>
+                 {{ config.phone }}</a><br>
                 Email:
-                <a class="" href="mailto:{{ config.email }}">{{ config.email }}</a>
-                {{ config.address|nl2br }}<br>
+                <a class="" href="mailto:{{ config.email }}"> <i class="icon icon-phone mr-2"></i> {{ config.email }}</a><br>
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="20" class="mr-1" fill="white" stroke=""  viewBox="0 0 11.2 20">
+                  <path class="st0" d="M5.6 0C2.5 0 0 2.5 0 5.6 0 11 5 10 5 20h1.3c0-10 5-9.1 5-14.4C11.2 2.5 8.7 0 5.6 0zM5.6 7.5c-1 0-1.9-0.8-1.9-1.9s0.8-1.9 1.9-1.9 1.9 0.8 1.9 1.9S6.7 7.5 5.6 7.5z"/></svg>
               </p>
             </div>
 
             <div class="col-12 order-4 order-lg-3 d-lg-flex col-lg-4 flex-column justify-content-start align-items-end text-center text-lg-right">
               <h4>Opening Hours</h4>
               <p class="text-right">
-                Mon-Fri 8am - 5pm**** Editable<br>
-                Sat-Sun Closed
+                {{ config.openingHours|nl2br }}
               </p>
             </div>
 
@@ -204,13 +208,13 @@
         </div>
       </section>
       <section class="sub-footer">
-        <div class="container py-8">
+        <div class="container py-2">
           <div class="row">
-            <div class="col-12 col-lg-6 d-lg-flex mb-1 mb-lg-0 flex-column justify-content-center align-items-start text-center text-lg-left">
-              <span>&copy; {{ "now"|date('Y') }} {{ config.getSiteName() }}</span>
+            <div class="col-12 col-sm-6 d-sm-flex mb-2 mb-sm-0 flex-column justify-content-center align-items-start text-center text-sm-left">
+              <span>&copy {{ config.getSiteName() }} {{ "now"|date('Y') }} All Rights Reserved</span>
             </div>
 
-            <div class="col-12 col-lg-6 d-lg-flex flex-column justify-content-center align-items-end text-center text-lg-right">
+            <div class="col-12 col-sm-6 d-sm-flex flex-column justify-content-center align-items-end text-center text-sm-right">
               <span>
                 <a href="https://www.activatedesign.co.nz/" target="_blank" {% if not page.isHomepage %} rel="nofollow" {% endif %}>Web Design by Activate</a>
               </span>

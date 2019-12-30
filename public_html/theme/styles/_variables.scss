@@ -1,6 +1,7 @@
 // COLOURS
-$PRIMARY-HIGHLIGHT: #344249;
+$PRIMARY-HIGHLIGHT: #a7e8a2;
 $PRIMARY-HOVER: darken($PRIMARY-HIGHLIGHT, 10%);
+$PRIMARY-HOVER-2X: darken($PRIMARY-HIGHLIGHT, 20%); // added for dental nz bc primary colour very light
 $SECONDARY-HIGHLIGHT: #344249;
 $DARK-COLOUR: #000;
 $LIGHT-COLOUR: #bdc1c2;
@@ -19,8 +20,8 @@ $LAPTOP-CONTENT-WIDTH: 1200px;
 $MAX-WIDTH: $CONTENT-WIDTH + 20px;
 $BACKGROUND: #fff;
 
-$CONTENT-FONT: "Montserrat", sans-serif;
-$HEADING-FONT: $CONTENT-FONT;
+$CONTENT-FONT: "DM Sans", sans-serif;
+$HEADING-FONT: "Montserrat", sans-serif;
 
 // Font weights
 $THIN: 100;

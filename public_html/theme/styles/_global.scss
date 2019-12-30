@@ -434,24 +434,23 @@ footer {
   z-index: 0;
   font-weight: $LIGHT;
   background-color: $PRIMARY-HIGHLIGHT;
-  color: $LIGHT-COLOUR;
+  color: #000;
 
   p, a, span {
     font-size: 1.6rem;
-    color: $LIGHT-COLOUR;
+    color: #000;
   }
 
   a {
     &:hover, &:active, &:focus {
-      color: lighten($LIGHT-COLOUR, 10%) !important;
+      color: lighten($LIGHT-COLOUR, 10%);
     }
   }
 
   h4 {
     font-size: 2.4rem;
-    text-transform: uppercase;
-    color: #fff;
-    font-weight: 300;
+    font-weight: $REGULAR;
+    color: #000;
   }
 
   .site-footer {
@@ -470,10 +469,15 @@ footer {
   }
 
   .sub-footer {
+    background-color: $LIGHT-BACKGROUND;
     p, a, span {
-      font-size: 1.4rem;
-      color: #999999;
+      font-size: 1.5rem;
+      color: #000;
       margin-bottom: 1.5rem;
+
+      a:hover {
+        color: #000;
+      }
 
       &:last-child {
         margin-bottom: 0;
