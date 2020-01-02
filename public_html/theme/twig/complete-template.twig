@@ -1,232 +1,253 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-NZ" class="{{ page.module|replace({' ': "-"}) }}">
 
-  <head>
+<head>
     {% block meta_data %}
-      <title>{{ page.title }}</title>
-      <meta name="description" content="{{ page.description }}"/>
-      <meta name="keywords" content="{{ page.keywords }}"/>
+        <title>{{ page.title }}</title>
+        <meta name="description" content="{{ page.description }}"/>
+        <meta name="keywords" content="{{ page.keywords }}"/>
     {% endblock %}
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     {% if config.googleSiteVerification != '' %}
-      <meta name="google-site-verification" content="{{ config.googleSiteVerification }}">
+        <meta name="google-site-verification" content="{{ config.googleSiteVerification }}">
     {% endif %}
     {% if originalPage.isDuplicate %}
-      <link rel='canonical' href='{{ constant(' protocol="PROTOCOL" ') ~ constant(' site_root="SITE_ROOT" ') ~ originalPage.original.path }}'/>
+        <link rel='canonical'
+              href='{{ constant(' protocol="PROTOCOL" ') ~ constant(' site_root="SITE_ROOT" ') ~ originalPage.original.path }}'/>
     {% endif %}
     <!--suppress HtmlUnknownTarget -->
     <link rel="shortcut icon" href="/favicon.ico"/>
     {% block canonical_link %}{% endblock %}
     {# get fonts early to reduce content flash. Still need set in _setup.css as well #}
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans:400,700|Montserrat:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans:400,700|Montserrat:300,400&display=swap"
+          rel="stylesheet">
     <script type="text/javascript">
-      // add this immediately so elements which are initially hidden based on presence of javascript don't 'flash'
-      (function() {
-        let node = document.documentElement;
-        node.setAttribute('class', node.getAttribute('class') + ' javascript')
-      })()
+        // add this immediately so elements which are initially hidden based on presence of javascript don't 'flash'
+        (function () {
+            let node = document.documentElement;
+            node.setAttribute('class', node.getAttribute('class') + ' javascript')
+        })()
     </script>
     {% block styles %}
-      {# Load stylesheets first for speed. Load all plugin stylesheets before local stylesheet to allow overrides with minimum declarations #}
-      <link rel="stylesheet" type="text/css" href="/bower_components/jquery-ui/themes/ui-lightness/jquery-ui.min.css"/>
-      <link rel="stylesheet" type="text/css" href="/bower_components/slick-carousel/slick/slick.css"/>
-      <link rel="stylesheet" type="text/css" href="/bower_components/lightGallery/dist/css/lightgallery.min.css"/>
-      <link rel="stylesheet" type="text/css" href="/bower_components/featherlight/release/featherlight.min.css"/>
-      <!--suppress HtmlUnknownTarget -->
-      <link rel="stylesheet" type="text/css" href="/theme/style.css"/>
+        {# Load stylesheets first for speed. Load all plugin stylesheets before local stylesheet to allow overrides with minimum declarations #}
+        <link rel="stylesheet" type="text/css"
+              href="/bower_components/jquery-ui/themes/ui-lightness/jquery-ui.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/bower_components/slick-carousel/slick/slick.css"/>
+        <link rel="stylesheet" type="text/css" href="/bower_components/lightGallery/dist/css/lightgallery.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/bower_components/featherlight/release/featherlight.min.css"/>
+        <!--suppress HtmlUnknownTarget -->
+        <link rel="stylesheet" type="text/css" href="/theme/style.css"/>
     {% endblock %}
     {% block scripts %}
-    {% do script.add("/bower_components/jquery/dist/jquery.min.js") %}
-    {% do script.add("/bower_components/jquery-ui/jquery-ui.min.js") %}
-    {% do script.add("/bower_components/js-cookie/src/js.cookie.js") %}
-    {% do script.add("/bower_components/jquery-validate/dist/jquery.validate.min.js") %}
-    {% do script.add("/bower_components/jquery-validate/dist/additional-methods.min.js") %}
-    {% do script.add("/bower_components/lightGallery/dist/js/lightgallery.min.js") %}
-    {% do script.add("/bower_components/featherlight/release/featherlight.min.js") %}
-    {% do script.add("/theme/scripts/featherlight-mouseup-fix.js") %}
-    {% do script.add("/bower_components/slick-carousel/slick/slick.min.js") %}
-    {% do script.add("/bower_components/better-dom/dist/better-dom.min.js") %}
-    {% do script.add("/bower_components/better-dateinput-polyfill/dist/better-dateinput-polyfill.min.js") %}
-    {% do script.add("/bower_components/hideShowPassword/hideShowPassword.min.js") %}
+        {% do script.add("/bower_components/jquery/dist/jquery.min.js") %}
+        {% do script.add("/bower_components/jquery-ui/jquery-ui.min.js") %}
+        {% do script.add("/bower_components/js-cookie/src/js.cookie.js") %}
+        {% do script.add("/bower_components/jquery-validate/dist/jquery.validate.min.js") %}
+        {% do script.add("/bower_components/jquery-validate/dist/additional-methods.min.js") %}
+        {% do script.add("/bower_components/lightGallery/dist/js/lightgallery.min.js") %}
+        {% do script.add("/bower_components/featherlight/release/featherlight.min.js") %}
+        {% do script.add("/theme/scripts/featherlight-mouseup-fix.js") %}
+        {% do script.add("/bower_components/slick-carousel/slick/slick.min.js") %}
+        {% do script.add("/bower_components/better-dom/dist/better-dom.min.js") %}
+        {% do script.add("/bower_components/better-dateinput-polyfill/dist/better-dateinput-polyfill.min.js") %}
+        {% do script.add("/bower_components/hideShowPassword/hideShowPassword.min.js") %}
 
-    {% if 'HoverCart'|isEnabled %}
-      {% do script.add("/theme/scripts/hover-cart.js") %}
-    {% endif %}
+        {% if 'HoverCart'|isEnabled %}
+            {% do script.add("/theme/scripts/hover-cart.js") %}
+        {% endif %}
 
-    {% do script.add("/theme/scripts/script.js") %}
+        {% do script.add("/theme/scripts/script.js") %}
 
 
-    {% if 'Payments\\Stripe'|gatewayEnabled %}
-      {% do script.add("/theme/scripts/stripe.js") %}
-      <script src="https://checkout.stripe.com/checkout.js"></script>
-    {% endif %}
+        {% if 'Payments\\Stripe'|gatewayEnabled %}
+        {% do script.add("/theme/scripts/stripe.js") %}
+        <script src="https://checkout.stripe.com/checkout.js"></script>
+        {% endif %}
 
-    {% if constant('GOOGLE_MAPS_API') != "" %}
-      {% set scriptUrl = 'https://maps.googleapis.com/maps/api/js?key=' ~ constant('GOOGLE_MAPS_API') %}
+        {% if constant('GOOGLE_MAPS_API') != "" %}
+        {% set scriptUrl = 'https://maps.googleapis.com/maps/api/js?key=' ~ constant('GOOGLE_MAPS_API') %}
 
-      {% if 'Shipping'|isEnabled %}
+        {% if 'Shipping'|isEnabled %}
         {# Note, this must be loaded before the Google Maps crap gets loaded, so we load it separately from everything else #}
         <script type='text/javascript' src='/theme/scripts/auto-address.js'></script>
         {% set scriptUrl = scriptUrl ~ '&libraries=places&callback=initAutocomplete' %}
-      {% endif %}
+        {% endif %}
 
-      <script type="text/javascript" src="{{ scriptUrl }}"></script>
-    {% endif %}
+        <script type="text/javascript" src="{{ scriptUrl }}"></script>
+        {% endif %}
 
-    {% if config.analyticsId != '' %}
-      {% include 'general/sections/google-analytics.twig' %}
-    {% endif %}
+        {% if config.analyticsId != '' %}
+            {% include 'general/sections/google-analytics.twig' %}
+        {% endif %}
 
-    {% if config.tagManagerId != '' %}
-      {% include 'general/sections/google-tag-manager.twig' %}
-    {% endif %}
+        {% if config.tagManagerId != '' %}
+            {% include 'general/sections/google-tag-manager.twig' %}
+        {% endif %}
 
-    {% if constant( 'RECAPTCHA_SITE_KEY' ) != '' %}
-      {% include 'general/sections/recaptcha.twig' %}
-    {% endif %}
+        {% if constant( 'RECAPTCHA_SITE_KEY' ) != '' %}
+            {% include 'general/sections/recaptcha.twig' %}
+        {% endif %}
     {% endblock %}
-  </head>
+</head>
 
-  <body>
-    <header role="banner">
-      <nav class="navbar navbar-expand-xl">
+<body>
+<header role="banner">
+    <nav class="navbar navbar-expand-xl">
         <div class="container d-flex align-items-center align-items-stretch">
-          <div class="d-flex align-items-center justify-content-between">
-          <div class="logo-container d-flex">
-            <a class="navbar-brand" href="{{ homePath }}">
-              <img class="logo" src="/theme/images/logo.png" alt="{{ config.getSiteName() }}"/>
-            </a>
-          </div>
-          <button class="navbar-toggler" aria-label="Toggle navigation">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="logo-container d-flex">
+                    <a class="navbar-brand" href="{{ homePath }}">
+                        <img class="logo" src="/theme/images/logo.png" alt="{{ config.getSiteName() }}"/>
+                    </a>
+                </div>
+                <button class="navbar-toggler" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
               <span></span>
               <span></span>
               <span></span>
             </span>
-          </button>
-          </div>
-          <div class="collapse navbar-collapse flex-column" id="navbarSupportedContent">
-            <ul class="navbar-nav">
+                </button>
+            </div>
+            <div class="collapse navbar-collapse flex-column" id="navbarSupportedContent">
+                <ul class="navbar-nav">
 
-              {% include "general/sections/navigation.twig" with {
-                "navItems" : navItems,
-                "currentDepth" : 1,
-                "maxDepth" : 2,
-                "currentNavItem" : originalPage
-              }
-              only %}
+                    {% include "general/sections/navigation.twig" with {
+                        "navItems" : navItems,
+                        "currentDepth" : 1,
+                        "maxDepth" : 2,
+                        "currentNavItem" : originalPage
+                    }
+                        only %}
 
-            <li class="nav-item d-xl-none">
-                <a href="tel:{{ config.getPhoneDigits() }}" class="nav-link ">
-                  <i class="icon icon-phone mr-2"></i>
-                  <span>{{ config.phone }}</span>
-                </a>
-              </li>
-            </ul>
-          </div>
+                    <li class="nav-item d-xl-none">
+                        <a href="tel:{{ config.getPhoneDigits() }}" class="nav-link ">
+                            <i class="icon icon-phone mr-2"></i>
+                            <span>{{ config.phone }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-          <a href="tel:{{ config.getPhoneDigits() }}" class="d-none d-xl-flex align-items-center py-3 phone">
-            <i class="icon icon-phone mr-2"></i>
-            <span>{{ config.phone }}</span>
-          </a>
+            <a href="tel:{{ config.getPhoneDigits() }}" class="d-none d-xl-flex align-items-center py-3 phone">
+                <i class="icon icon-phone mr-2"></i>
+                <span>{{ config.phone }}</span>
+            </a>
 
         </div>
-      </nav>
-    </header>
-    <!-- end header -->
-    <main>
+    </nav>
+</header>
+<!-- end header -->
+<main>
 
 
-      {% include 'general/sections/slideshow.twig' %}
-        <!-- if homepage, get slideshow, else get banner -->
-      {#{% if (page.isHomepage) %}
+    {% include 'general/sections/slideshow.twig' %}
+    <!-- if homepage, get slideshow, else get banner -->
+    {#{% if (page.isHomepage) %}
 
-        {% else %}
-          {% include 'general/sections/banner.twig' %}
-      {% endif %}#}
+      {% else %}
+        {% include 'general/sections/banner.twig' %}
+    {% endif %}#}
 
-        {% block content_wrapper %}
-          {% if (page.isHomepage) == false %}
+    {% block content_wrapper %}
+        {% if (page.isHomepage) == false %}
             <div class="container-fluid content-wrapper">
-          {% endif %}
+        {% endif %}
 
         {% block content %}
         {% endblock %}
 
         {% if (page.isHomepage) == false %}
-          </div>
+            </div>
         {% endif %}
-        {% endblock %}
+    {% endblock %}
 
-    </main>
+</main>
 
-    <!-- if contact page, show map -->
-    {#  {% if (page.module == "Contact") and config.address != '' %}
-        <div class="map">
-          {{ config.getMap()|raw }}
-        </div>
-    {% endif %}#}
+<!-- if contact page, show map -->
+{#  {% if (page.module == "Contact") and config.address != '' %}
+    <div class="map">
+      {{ config.getMap()|raw }}
+    </div>
+{% endif %}#}
 
 
-    <footer role="contentinfo">
-      <section class="site-footer">
+<footer role="contentinfo">
+    <section class="site-footer">
         <div class="container pt-8 pt-lg-18 pb-lg-8">
-          <div class="row">
-            <div class="col-12 order-3 order-lg-1 d-lg-flex col-lg-4 flex-column justify-content-start align-items-start text-center text-lg-left">
+            <div class="row">
+                <div class="col-12 order-3 order-lg-1 d-lg-flex col-lg-4 flex-column justify-content-start align-items-start text-center text-lg-left">
 
-              <img src="/theme/images/logo-footer.png" alt="{{ constant('SITE_FROM_NAME') }}" class="img-fluid">
+                    <img src="/theme/images/logo-footer.png" alt="{{ constant('SITE_FROM_NAME') }}" class="img-fluid">
 
-              <div class="d-none d-sm-block mt-7">
-              {% include 'general/sections/search-form.twig' %}
-              </div>
+                    <div class="d-none d-sm-block mt-7">
+                        {% include 'general/sections/search-form.twig' %}
+                    </div>
+                </div>
+
+                <div class="col-12 order-1 order-lg-2 d-flex col-lg-4 flex-column justify-content-start text-lg-left">
+                    <h4 class="text-lg-center">Committed to dental well-being</h4>
+                    <p>
+                        <a class="d-flex align-items-center" href="mailto:{{ config.getPhoneDigits() }}">
+                            <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                 viewBox="1 1 17.9 18" fill="white" stroke="">
+                                <path d="M4.7 13c1.8 2.1 3.9 3.8 6.4 5 0.9 0.4 2.2 1 3.6 1.1 0.1 0 0.2 0 0.3 0 0.9 0 1.7-0.3 2.3-1 0 0 0 0 0 0 0.2-0.3 0.5-0.5 0.7-0.7 0.2-0.2 0.4-0.3 0.5-0.5 0.8-0.8 0.8-1.9 0-2.7l-2.2-2.2c-0.4-0.4-0.8-0.6-1.3-0.6 -0.5 0-0.9 0.2-1.3 0.6l-1.3 1.3c-0.1-0.1-0.2-0.1-0.4-0.2 -0.1-0.1-0.3-0.1-0.4-0.2C10.2 12 9 10.9 8 9.6 7.5 9 7.1 8.4 6.8 7.8c0.4-0.3 0.7-0.6 1-1C8 6.7 8.1 6.6 8.2 6.5c0.4-0.4 0.6-0.9 0.6-1.3 0-0.5-0.2-0.9-0.6-1.3L7.1 2.7C6.9 2.6 6.8 2.5 6.7 2.3 6.5 2.1 6.2 1.8 5.9 1.6 5.6 1.2 5.1 1 4.6 1 4.2 1 3.7 1.2 3.3 1.6L1.9 3C1.4 3.5 1.1 4.1 1.1 4.8 1 5.7 1.1 6.6 1.6 7.8 2.2 9.6 3.2 11.2 4.7 13zM2 4.9C2 4.4 2.2 4 2.6 3.6l1.4-1.4C4.2 2 4.4 1.9 4.6 1.9c0.2 0 0.5 0.1 0.7 0.3C5.5 2.5 5.8 2.7 6 3c0.1 0.1 0.3 0.3 0.4 0.4l1.1 1.1c0.2 0.2 0.4 0.5 0.4 0.7 0 0.2-0.1 0.5-0.4 0.7C7.4 6 7.3 6.1 7.2 6.2c-0.3 0.4-0.7 0.7-1 1 0 0 0 0 0 0C5.8 7.5 5.9 7.8 6 8.1c0 0 0 0 0 0 0.3 0.7 0.7 1.3 1.3 2.1 1.1 1.4 2.3 2.5 3.6 3.3 0.2 0.1 0.3 0.2 0.5 0.3 0.1 0.1 0.3 0.1 0.4 0.2 0 0 0 0 0 0 0.1 0.1 0.2 0.1 0.4 0.1 0.3 0 0.5-0.2 0.6-0.3l1.4-1.4c0.2-0.2 0.5-0.3 0.7-0.3 0.3 0 0.5 0.2 0.7 0.3l2.2 2.2c0.4 0.4 0.4 0.9 0 1.4 -0.2 0.2-0.3 0.3-0.5 0.5 -0.3 0.3-0.5 0.5-0.8 0.8 -0.4 0.5-0.9 0.7-1.6 0.7 -0.1 0-0.1 0-0.2 0 -1.2-0.1-2.4-0.6-3.2-1 -2.3-1.1-4.4-2.7-6-4.7C4 10.7 3 9.2 2.4 7.5 2 6.5 1.9 5.6 2 4.9z"/>
+                            </svg>
+
+                            {{ config.phone }}</a>
+
+                        <a class="d-flex align-items-center" href="mailto:{{ config.email }}">
+                            <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="20" height="15" fill="white"
+                                 stroke="" viewBox="0 2.4 20 15.2">
+                                <path d="M18.2 2.4H1.8C0.8 2.4 0 3.2 0 4.1v11.7c0 1 0.8 1.8 1.8 1.8h16.5c1 0 1.8-0.8 1.8-1.8V4.1C20 3.2 19.2 2.4 18.2 2.4zM18 3.6l-8 8 -8-8H18zM1.2 15.6V4.4L6.8 10 1.2 15.6zM2 16.4l5.6-5.6 2 2c0.2 0.2 0.6 0.2 0.8 0l1.9-1.9 5.6 5.6H2zM18.8 15.6L13.2 10l5.6-5.6V15.6z"/>
+                            </svg>
+
+                            {{ config.email }}</a>
+
+                    <span class="d-flex align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="20" class="mr-1" fill="white"
+                             stroke="" viewBox="0 0 11.2 20">
+                            <path d="M5.6 0C2.5 0 0 2.5 0 5.6 0 11 5 10 5 20h1.3c0-10 5-9.1 5-14.4C11.2 2.5 8.7 0 5.6 0zM5.6 7.5c-1 0-1.9-0.8-1.9-1.9s0.8-1.9 1.9-1.9 1.9 0.8 1.9 1.9S6.7 7.5 5.6 7.5z"/>
+                        </svg>
+
+                        {{ config.address }}
+                        </span>
+                    </p>
+
+                </div>
+
+                <div class="col-12 order-4 order-lg-3 d-lg-flex col-lg-4 flex-column justify-content-start align-items-end text-center text-lg-right">
+                    <h4>Opening Hours</h4>
+                    <p class="text-right">
+                        {{ config.openingHours|nl2br }}
+                    </p>
+                </div>
+
             </div>
-
-            <div class="col-12 order-1 order-lg-2 d-flex col-lg-4 flex-column justify-content-start align-items-center text-center text-lg-left">
-              <h4>Committed to dental well-being</h4>
-              <p>
-                <a class="" href="mailto:{{ config.getPhoneDigits() }}">
-                  <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="20" height="15" fill="white" stroke="" viewBox="0 2.4 20 15.2">
-                    <path d="M18.2 2.4H1.8C0.8 2.4 0 3.2 0 4.1v11.7c0 1 0.8 1.8 1.8 1.8h16.5c1 0 1.8-0.8 1.8-1.8V4.1C20 3.2 19.2 2.4 18.2 2.4zM18 3.6l-8 8 -8-8H18zM1.2 15.6V4.4L6.8 10 1.2 15.6zM2 16.4l5.6-5.6 2 2c0.2 0.2 0.6 0.2 0.8 0l1.9-1.9 5.6 5.6H2zM18.8 15.6L13.2 10l5.6-5.6V15.6z"/></svg>
-                 {{ config.phone }}</a><br>
-                Email:
-                <a class="" href="mailto:{{ config.email }}"> <i class="icon icon-phone mr-2"></i> {{ config.email }}</a><br>
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="20" class="mr-1" fill="white" stroke=""  viewBox="0 0 11.2 20">
-                  <path class="st0" d="M5.6 0C2.5 0 0 2.5 0 5.6 0 11 5 10 5 20h1.3c0-10 5-9.1 5-14.4C11.2 2.5 8.7 0 5.6 0zM5.6 7.5c-1 0-1.9-0.8-1.9-1.9s0.8-1.9 1.9-1.9 1.9 0.8 1.9 1.9S6.7 7.5 5.6 7.5z"/></svg>
-              </p>
-            </div>
-
-            <div class="col-12 order-4 order-lg-3 d-lg-flex col-lg-4 flex-column justify-content-start align-items-end text-center text-lg-right">
-              <h4>Opening Hours</h4>
-              <p class="text-right">
-                {{ config.openingHours|nl2br }}
-              </p>
-            </div>
-
-          </div>
         </div>
-      </section>
-      <section class="sub-footer">
+    </section>
+    <section class="sub-footer">
         <div class="container py-2">
-          <div class="row">
-            <div class="col-12 col-sm-6 d-sm-flex mb-2 mb-sm-0 flex-column justify-content-center align-items-start text-center text-sm-left">
-              <span>&copy {{ config.getSiteName() }} {{ "now"|date('Y') }} All Rights Reserved</span>
-            </div>
+            <div class="row">
+                <div class="col-12 col-sm-6 d-sm-flex mb-2 mb-sm-0 flex-column justify-content-center align-items-start text-center text-sm-left">
+                    <span>&copy {{ config.getSiteName() }} {{ "now"|date('Y') }} All Rights Reserved</span>
+                </div>
 
-            <div class="col-12 col-sm-6 d-sm-flex flex-column justify-content-center align-items-end text-center text-sm-right">
+                <div class="col-12 col-sm-6 d-sm-flex flex-column justify-content-center align-items-end text-center text-sm-right">
               <span>
-                <a href="https://www.activatedesign.co.nz/" target="_blank" {% if not page.isHomepage %} rel="nofollow" {% endif %}>Web Design by Activate</a>
+                <a href="https://www.activatedesign.co.nz/"
+                   target="_blank" {% if not page.isHomepage %} rel="nofollow" {% endif %}>Web Design by Activate</a>
               </span>
+                </div>
             </div>
-          </div>
         </div>
-      </section>
-    </footer>
+    </section>
+</footer>
 
-    {{ script.output()|raw }}
-    {# Below is a completely nonsensical fix for a range of bonkers page load display issues in Chrome and Firefox #}
-    <script> </script>
-  </body>
+{{ script.output()|raw }}
+{# Below is a completely nonsensical fix for a range of bonkers page load display issues in Chrome and Firefox #}
+<script></script>
+</body>
 
 </html>

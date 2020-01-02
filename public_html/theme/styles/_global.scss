@@ -442,8 +442,10 @@ footer {
   }
 
   a {
-    &:hover, &:active, &:focus {
-      color: lighten($LIGHT-COLOUR, 10%);
+    &:hover:not(.button),
+    &:active:not(.button),
+    &:focus:not(.button) {
+      color: #fff;
     }
   }
 
