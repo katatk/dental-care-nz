@@ -95,7 +95,7 @@
 <body>
 <header role="banner">
     <nav class="navbar navbar-expand-xl">
-        <div class="container d-flex align-items-center align-items-stretch">
+        <div class="container d-flex align-items-center">
             <div class="d-flex align-items-center justify-content-between">
                 <div class="logo-container d-flex">
                     <a class="navbar-brand" href="{{ homePath }}">
@@ -121,19 +121,19 @@
                     }
                         only %}
 
-                    <li class="nav-item d-xl-none">
+                   {# <li class="nav-item d-xl-none">
                         <a href="tel:{{ config.getPhoneDigits() }}" class="nav-link ">
                             <i class="icon icon-phone mr-2"></i>
                             <span>{{ config.phone }}</span>
                         </a>
-                    </li>
+                    </li> #}
                 </ul>
             </div>
 
-            <a href="tel:{{ config.getPhoneDigits() }}" class="d-none d-xl-flex align-items-center py-3 phone">
+            {# <a href="tel:{{ config.getPhoneDigits() }}" class="d-none d-xl-flex align-items-center py-3 phone">
                 <i class="icon icon-phone mr-2"></i>
                 <span>{{ config.phone }}</span>
-            </a>
+            </a> #}
 
         </div>
     </nav>
@@ -198,7 +198,7 @@
                             {{ config.phone }}</a>
 
                         <a class="d-flex align-items-center" href="mailto:{{ config.email }}">
-                            <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="20" height="15" fill="white"
+                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="20" height="15" fill="white"
                                  stroke="" viewBox="0 2.4 20 15.2">
                                 <path d="M18.2 2.4H1.8C0.8 2.4 0 3.2 0 4.1v11.7c0 1 0.8 1.8 1.8 1.8h16.5c1 0 1.8-0.8 1.8-1.8V4.1C20 3.2 19.2 2.4 18.2 2.4zM18 3.6l-8 8 -8-8H18zM1.2 15.6V4.4L6.8 10 1.2 15.6zM2 16.4l5.6-5.6 2 2c0.2 0.2 0.6 0.2 0.8 0l1.9-1.9 5.6 5.6H2zM18.8 15.6L13.2 10l5.6-5.6V15.6z"/>
                             </svg>
@@ -206,7 +206,7 @@
                             {{ config.email }}</a>
 
                     <span class="d-flex align-items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="20" class="mr-1" fill="white"
+                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="20" class="mr-2" fill="white"
                              stroke="" viewBox="0 0 11.2 20">
                             <path d="M5.6 0C2.5 0 0 2.5 0 5.6 0 11 5 10 5 20h1.3c0-10 5-9.1 5-14.4C11.2 2.5 8.7 0 5.6 0zM5.6 7.5c-1 0-1.9-0.8-1.9-1.9s0.8-1.9 1.9-1.9 1.9 0.8 1.9 1.9S6.7 7.5 5.6 7.5z"/>
                         </svg>

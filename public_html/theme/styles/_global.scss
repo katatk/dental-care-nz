@@ -61,11 +61,10 @@ h1 {
     font-size: 3.8rem;
   }
 
-
   text-transform: capitalize;
   margin-bottom: 3rem;
 
-  @include underline;
+  @include underline(center);
 }
 
 h2 {
@@ -168,7 +167,7 @@ button {
   display: inline-block;
   font-size: 1.4rem;
   padding: 1.75rem 3rem;
-  font-weight: 400;
+  font-weight: $REGULAR;
   text-transform: uppercase;
   background: $PRIMARY-HIGHLIGHT;
   color: #fff;
@@ -176,7 +175,6 @@ button {
   cursor: pointer;
   text-decoration: none;
   border: none;
-  font-weight: 500;
 
   @include hover {
     background: $PRIMARY-HOVER;
@@ -451,7 +449,7 @@ footer {
 
   h4 {
     font-size: 2.4rem;
-    font-weight: $REGULAR;
+    font-weight: $BOLD;
     color: #000;
   }
 
@@ -714,7 +712,6 @@ hr {
   height: 1px;
   background-color: $LIGHT-BACKGROUND;
   border: none;
-  height: 100%;
 }
 
 .pos-relative {

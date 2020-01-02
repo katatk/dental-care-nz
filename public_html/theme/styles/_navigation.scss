@@ -81,17 +81,16 @@ nav[class*="navbar-expand-"] {
 
     @include above($NAV-BREAKPOINT) {
       padding-top: 0;
-      justify-content: center;
+      justify-content: flex-end;
     }
 
 
     // the li tag
     .nav-item {
-      text-transform: uppercase;
+
       font-weight: 400;
 
       @include above($NAV-BREAKPOINT) {
-        padding-left: 0;
         display: flex;
         align-items: center;
         text-align: center;
@@ -105,21 +104,19 @@ nav[class*="navbar-expand-"] {
         z-index: 1;
         text-decoration: none;
         line-height: 1;
-        font-weight: 600;
+        font-weight: $REGULAR;
         color: #fff;
-        font-family: $HEADING-FONT;
-        text-transform: uppercase;
+        font-family: $CONTENT-FONT;
+        text-transform: lowercase;
         text-align: left;
         font-size: 1.5rem;
         padding: 1.5rem 0 1.5rem 4rem;
         display: inline-block;
-        text-align: left;
         width: 100%;
         transition: none;
 
         @include above($NAV-BREAKPOINT) {
           z-index: 0;
-          display: inline;
           height: 100%;
           display: flex;
           align-items: center;
@@ -127,7 +124,7 @@ nav[class*="navbar-expand-"] {
           position: relative;
           padding: 4rem $horizontal-padding;
           font-size: 1.3rem;
-          color: $PRIMARY-HIGHLIGHT;
+          color: #000;
 
           @include above($LAPTOP-BREAKPOINT) {
             font-size: 1.5rem;
