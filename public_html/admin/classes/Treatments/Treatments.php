@@ -31,8 +31,8 @@ use DatabaseObject\FormElement\ImageElement;
 		const LABEL_PROPERTY = 'name';
 
 		const IMAGE_LOCATION = DOC_ROOT . "/resources/images/treatments/";
-		const IMAGE_WIDTH = STAFF_IMAGE_WIDTH;
-		const IMAGE_HEIGHT = STAFF_IMAGE_HEIGHT;
+		const IMAGE_WIDTH = TEAM_IMAGE_WIDTH;
+		const IMAGE_HEIGHT = TEAM_IMAGE_HEIGHT;
 		const IMAGE_SCALE_TYPE = ImageProperty::SCALE;
 
 		public $name = "";

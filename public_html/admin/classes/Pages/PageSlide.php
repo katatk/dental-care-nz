@@ -78,6 +78,7 @@
 			static::addProperty(new LinkToProperty("page", "page_id", Page::class));
 			static::addProperty(new Property('title', 'title', 'string'));
 			static::addProperty(new Property('subtitle', 'subtitle', 'string'));
+			static::addProperty(new Property('description', 'description', 'string'));
 			static::addProperty(new Property("link", "link", "string"));
 			static::addProperty(new Property("button", "button", "string"));
 			static::addProperty(new ImageProperty('image', 'image', static::IMAGES_LOCATION, static::DESKTOP_IMAGE_WIDTH, static::DESKTOP_IMAGE_HEIGHT, static::DESKTOP_IMAGE_RESIZE_TYPE));
@@ -117,6 +118,7 @@
 			{
 				$this->addFormElement(new Text('title', 'Title <span>(optional)</span>'));
 				$this->addFormElement(new Text('subtitle', 'Sub Title <span>(optional)</span>'));
+				$this->addFormElement(new Text('description', 'Description <span>(optional)</span>'));
 			}
 
 			if(PAGE_SLIDESHOW_LINK)
@@ -165,16 +167,16 @@
 
 			if($this->title !== '')
 			{
-				$html .= "<h2>\n";
+				$html .= "<h2>";
 				$html .= nl2br($this->title) . "\n";
-				$html .= "</h2>\n";
+				$html .= "</h2>";
 			}
 
 			if($this->subtitle !== '')
 			{
-				$html .= "<p>\n";
+				$html .= "<p>";
 				$html .= nl2br($this->subtitle) . "\n";
-				$html .= "</p>\n";
+				$html .= "</p>";
 			}
 
 			// if button field not empty, create a button

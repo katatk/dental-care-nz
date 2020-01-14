@@ -2,34 +2,46 @@
 
 .Home {
   .slideshow, .slick-slider {
-    @include above($LG-BREAKPOINT) {
-      height: 550px;
+
+    .text-container {
+      display: none;
+      text-align: center;
+
+      h2 {
+        color: #000;
+        font-size: 4rem;
+        line-height: 1.4;
+        max-width: 12ch;
+        font-weight: 500;
+      }
+
+      @include above($MD-BREAKPOINT) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba($LIGHT-BACKGROUND, 0.7);
+      }
     }
 
+    &.banner {
+      @include above($LAPTOP-BREAKPOINT) {
+        height: 600px;
+      }
 
-    @include above($XL-BREAKPOINT) {
-      height: 650px;
-    }
-
-
-    @include above($LAPTOP-BREAKPOINT) {
-      height: 889px;
+      .button {
+        @include above($NAV-BREAKPOINT) {
+          position: relative;
+          top: 4rem;
+        }
+      }
     }
   }
 }
 
+// applies to all slideshows by default
 .slideshow {
   &.banner {
-    height: 400px;
-
-    @include above($LG-BREAKPOINT) {
-      height: 550px;
-    }
-
-
-    @include above($LAPTOP-BREAKPOINT) {
-      height: 788px;
-    }
+    height: 353px;
   }
 
   // container
@@ -45,7 +57,7 @@
   $height: calc(100% * #{453 / 2560});
   $main-height: calc(100% * #{823 / 2560});
 
-  /// mobile sizing (fixed height)
+  // mobile sizing (fixed height)
   $responsive-height: 340px;
 
   overflow: hidden;
@@ -56,21 +68,7 @@
 
   &.banner {
     .slick-slider {
-      height: 400px;
-
-      @include above($LG-BREAKPOINT) {
-        height: 550px;
-      }
-
-
-      @include above($XL-BREAKPOINT) {
-        height: 650px;
-      }
-
-
-      @include above($LAPTOP-BREAKPOINT) {
-        height: 889px;
-      }
+      height: 353px;
     }
 
     .slick-list, .slick-track, .slider, .slide, .background-image {
@@ -112,7 +110,7 @@
       margin-bottom: 0.5rem;
       color: #fff;
       font-size: 4rem;
-      text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
+      text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
 
       @include above($LG-BREAKPOINT) {
         font-size: 5rem;
@@ -125,7 +123,7 @@
     }
 
     p {
-      text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
+      text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
       font-size: 2.4rem;
       color: #fff;
       font-weight: 300;

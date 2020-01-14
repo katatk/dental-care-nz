@@ -1,0 +1,18 @@
+{% extends 'template.twig' %}
+
+{% block content %}
+  <div class="container main-content">
+    {% if page.contentTitle != '' %}
+      <h1>{{ page.contentTitle }}</h1>
+    {% endif %}
+    <div class="row">
+      <div class="col-12 mb-8 mb-lg-0">
+        {{ page.content|raw }}
+      </div>
+      <div class="col-12 ">
+          {% include 'general/sections/gallery.twig' %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

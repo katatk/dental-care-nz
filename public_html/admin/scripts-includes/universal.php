@@ -66,20 +66,21 @@
 	 * @var bool SITE_SECONDARY_NAV does the template have a partial duplication of the main menu
 	 *		anywhere (usually in the footer); triggers a checkbox to include pages on this menu
 	 */
-	define('PAGE_HAS_SLIDESHOW', false);
+	define('PAGE_HAS_SLIDESHOW', true);
 	define('PAGE_SLIDE_HAS_MULTIPLE_IMAGES', false);
-	define('PAGE_SLIDESHOW_WIDTH', 2560);
-	define('PAGE_SLIDESHOW_HEIGHT', 387);
+	define('PAGE_SLIDESHOW_WIDTH', 1410);
+	define('PAGE_SLIDESHOW_HEIGHT', 353);
 	define('PAGE_SLIDESHOW_RESPONSIVE_WIDTH', 600);
 	define('PAGE_SLIDESHOW_RESPONSIVE_HEIGHT', 340);
-	define('PAGE_HOMEPAGE_SLIDESHOW_WIDTH', 2560);
-	define('PAGE_HOMEPAGE_SLIDESHOW_HEIGHT', 823);
-	define('PAGE_SLIDESHOW_CAPTION', false);
-	define('PAGE_SLIDESHOW_LINK', false);
-	define("PAGE_SLIDESHOW_BUTTON", false);
-	define('PAGE_AUX_IMAGE', false);
-	define('PAGE_AUX_WIDTH', 980);
-	define('PAGE_AUX_HEIGHT', 0);
+
+	define('PAGE_HOMEPAGE_SLIDESHOW_WIDTH', 1410);
+	define('PAGE_HOMEPAGE_SLIDESHOW_HEIGHT', 600);
+	define('PAGE_SLIDESHOW_CAPTION', true);
+	define('PAGE_SLIDESHOW_LINK', true);
+	define("PAGE_SLIDESHOW_BUTTON", true);
+	define('PAGE_AUX_IMAGE', true);
+	define('PAGE_AUX_WIDTH', 424);
+	define('PAGE_AUX_HEIGHT', 800);
 	define('SITE_SECONDARY_NAV', false);
 
 	/**
@@ -90,10 +91,24 @@
 	 * @var int GALLERY_THUMBNAIL_WIDTH (max) px referenced by new/replace image scripts
 	 * @var int GALLERY_THUMBNAIL_HEIGHT (max) px referenced by new/replace image scripts
 	 */
-	define('GALLERY_IMAGE_WIDTH', 1000);
-	define('GALLERY_IMAGE_HEIGHT', 800);
-	define('GALLERY_THUMBNAIL_WIDTH', 500);
-	define('GALLERY_THUMBNAIL_HEIGHT', 500);
+	define('GALLERY_IMAGE_WIDTH', 468);
+	define('GALLERY_IMAGE_HEIGHT', 353);
+	define('GALLERY_THUMBNAIL_WIDTH', 300);
+	define('GALLERY_THUMBNAIL_HEIGHT', 300);
+
+	/**
+     * team photos
+     */
+    define('TEAM_IMAGE_WIDTH', 350);
+    define('TEAM_IMAGE_HEIGHT', 350);
+
+
+    /**
+     * treatments photos
+     */
+    define('TREATMENTS_IMAGE_WIDTH', 444);
+    define('TREATMENTS_IMAGE_HEIGHT', 280);
+
 
 	/**
 	 * Products image dimensions

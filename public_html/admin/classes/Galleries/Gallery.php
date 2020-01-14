@@ -42,7 +42,7 @@
 		const PLURAL = 'galleries';
 		const LABEL_PROPERTY = "title";
 
-		const HOME_GALLERY_ID = 1;
+		const CLINIC_GALLERY_ID = 1;
 
 		// Gallery
 		public $title = '';

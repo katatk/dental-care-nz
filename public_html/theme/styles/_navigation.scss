@@ -3,23 +3,17 @@ $horizontal-padding: 1.5rem;
 $db-horizontal-padding: $horizontal-padding * 2;
 
 header {
-  padding-top: 2rem;
+  padding-top: 1rem;
   padding-bottom: 1rem;
   z-index: 2;
-  position: fixed;
   top: 0;
   left: 0;
-
-  @include below($NAV-BREAKPOINT) {
-    background-color: #fff;
-    box-shadow: 0 0 46px 0 rgba(181, 210, 217, .4);
-
-  }
-
+  background-color: #fff;
+  border-bottom: 2px solid $PRIMARY-HIGHLIGHT;
 
   @include above($NAV-BREAKPOINT) {
-    position: absolute;
-    background-color: transparent;
+    padding-bottom: 0;
+    padding-top: 1rem;
 
 
     &.out-of-sight {
@@ -105,31 +99,26 @@ nav[class*="navbar-expand-"] {
         text-decoration: none;
         line-height: 1;
         font-weight: $REGULAR;
-        color: #fff;
+        color: #000;
         font-family: $CONTENT-FONT;
         text-transform: lowercase;
-        text-align: left;
-        font-size: 1.5rem;
-        padding: 1.5rem 0 1.5rem 4rem;
+        text-align: center;
+        font-size: 1.6rem;
+        padding: 1.5rem 0 1.5rem 2rem;
         display: inline-block;
         width: 100%;
         transition: none;
 
         @include above($NAV-BREAKPOINT) {
+          font-size: 1.7rem;
           z-index: 0;
           height: 100%;
           display: flex;
           align-items: center;
           text-align: center;
           position: relative;
-          padding: 4rem $horizontal-padding;
-          font-size: 1.3rem;
+          padding: 2.2rem $horizontal-padding;
           color: #000;
-
-          @include above($LAPTOP-BREAKPOINT) {
-            font-size: 1.5rem;
-          }
-
 
           &::before {
             content: '';
@@ -137,11 +126,11 @@ nav[class*="navbar-expand-"] {
             width: calc(100% - #{$db-horizontal-padding});
             position: absolute;
             left: $horizontal-padding;
-            bottom: 0;
+            bottom: -2px;
             transform: scaleX(0);
             transition: all 0.3s ease-in-out 0s;
             display: inline-block;
-            background-color: $PRIMARY-HIGHLIGHT;
+            background-color: #fff;
           }
 
           &:active,
@@ -154,8 +143,10 @@ nav[class*="navbar-expand-"] {
       }
 
       &.active .nav-link {
+        color: $SECONDARY-HIGHLIGHT;
+        font-weight: $BOLD;
         @include above($NAV-BREAKPOINT) {
-          &::before {
+         /* &::before {
             content: '';
             height: 2px;
             position: absolute;
@@ -166,7 +157,7 @@ nav[class*="navbar-expand-"] {
             transform: scaleX(1);
             display: inline-block;
             background-color: $PRIMARY-HIGHLIGHT;
-          }
+          }*/
         }
       }
 
@@ -266,7 +257,6 @@ nav[class*="navbar-expand-"] {
     font-weight: 300;
     color: #fff;
     font-family: $HEADING-FONT;
-    text-align: left;
     font-size: 1.5rem;
     padding: 2.5rem;
     text-align: center;
@@ -297,8 +287,6 @@ nav[class*="navbar-expand-"] {
 
 // logo styles
 .logo-container {
-  position: relative;
-  top: -1rem;
 
   @include above($NAV-BREAKPOINT) {
   }
@@ -387,7 +375,7 @@ nav[class*="navbar-expand-"] {
       position: absolute;
       height: 2px;
       width: 100%;
-      background: $PRIMARY-HIGHLIGHT;
+      background: $SECONDARY-HIGHLIGHT;
       border-radius: 9px;
       opacity: 1;
       left: 0;

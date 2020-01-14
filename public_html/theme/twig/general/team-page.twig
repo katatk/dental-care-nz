@@ -3,14 +3,14 @@
 {% block content %}
   <div class="container main-content">
     {% if page.contentTitle != '' %}
-      <h1>{{ page.contentTitle }}</h1>
+      <h1 class="text-center">{{ page.contentTitle }}</h1>
     {% endif %}
     <div class="row">
-      <div class="col-12 mb-4">
+      <div class="col-12 mb-6">
         {{ page.content|raw }}
       </div>
     </div>
-      {% include 'general/sections/staff.twig' %}
+      {% include 'general/sections/team.twig' %}
   </div>
-
+ 
 {% endblock %}

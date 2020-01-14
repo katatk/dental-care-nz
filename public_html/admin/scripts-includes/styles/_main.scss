@@ -1407,7 +1407,7 @@ div.checkboxes {
 
   input {
     appearance: none;
-    background: $LIGHT-COLOUR;
+    background: #fff;
     border-radius: 18px;
     border: 0;
     cursor: pointer;
@@ -1437,7 +1437,7 @@ div.checkboxes {
     &:after {
       align-items: center;
       box-sizing: border-box;
-      color: $LIGHT-COLOUR;
+      color: #fff;
       content: "Inactive";
       display: flex;
       font-size: 13px;

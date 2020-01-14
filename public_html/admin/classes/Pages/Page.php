@@ -237,10 +237,10 @@
 			// 	$this->addFormElement((new Text("bannerText", 'Banner Text')), "Content");
 			// }
 
-			// if(PAGE_AUX_IMAGE)
-			// {
-			// 	$this->addFormElement(new ImageElement('image', 'Image', $this->image), "Content");
-			// }
+			 if(PAGE_AUX_IMAGE)
+			 {
+			 	$this->addFormElement(new ImageElement('image', 'Image', $this->image), "Content");
+			 }
 
 			if(PAGE_HAS_SLIDESHOW)
 			{

@@ -45,11 +45,13 @@
 				// custom page types
 				$types["Home"] = new static(HomePage::class, "general/home-page", HomeController::class);
 
-				$types["Page with Button"] = new static(ContentPage::class, "general/page-with-button");
+			/*	$types["Page with Button"] = new static(ContentPage::class, "general/page-with-button");*/
 
-				$types["Staff"] = new static(Page::class, "general/staff-page");
+				$types["Team"] = new static(Page::class, "general/team-page");
 
-				$types["Services"] = new static(ServicesPage::class, "general/services-page");
+			/*	$types["Gallery"] = new static(Page::class, "general/team-page");*/
+
+				/*$types["Services"] = new static(ServicesPage::class, "general/services-page");*/
 
 			// if(Registry::isEnabled("Projects"))
 			// {

@@ -15,7 +15,7 @@
 
 	use Files\Image;
 
-	class HomePage extends ContentPage
+	class HomePage extends Page
 	{
 
 		const TABLE = "home_page";
@@ -46,10 +46,10 @@
 
 			if(PAGE_HAS_SLIDESHOW)
 			{
-				$this->addFormElement(new Checkbox("useSlideshow", 'Display slideshow'), "Slideshow");
+				$this->addFormElement(new Checkbox("useSlideshow", 'Display slideshow'), "Banner/Slideshow");
 
 				/** @var ImageProperty $imageProperty */
-				$this->addFormElement(new GridElement('slides', 'Slides'), "Slideshow");
+				$this->addFormElement(new GridElement('slides', 'Slides'), "Banner/Slideshow");
 			}
 
 

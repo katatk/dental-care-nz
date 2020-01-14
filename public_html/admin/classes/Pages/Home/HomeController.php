@@ -22,8 +22,8 @@
 
 			// module content which displays on the homepage eg
 			// $variables['recentArticles'] = BlogArticle::getRecent(2);
-				$variables["projects"] = Project::loadAllFor("active", true);
-				$variables["homeGallery"] = Gallery::load(Gallery::HOME_GALLERY_ID);
+			/*	$variables["projects"] = Project::loadAllFor("active", true);*/
+				$variables["clinicGallery"] = Gallery::load(Gallery::CLINIC_GALLERY_ID);
 
 			return $variables;
 		}

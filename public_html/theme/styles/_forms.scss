@@ -37,13 +37,14 @@ form:not(.custom-form) {
   }
 
   .field-wrapper {
-    @include below($LG-BREAKPOINT) {
-      max-width: 500px;
+    max-width: 500px;
+    @include above($LG-BREAKPOINT) {
+      max-width: unset;
     }
 
 
     &:not(:last-child) {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
 
     &:last-child {
@@ -57,7 +58,7 @@ form:not(.custom-form) {
   }
 
   .field {
-    display: block;
+    display: flex;
   }
 
   span.error {
@@ -76,6 +77,8 @@ form:not(.custom-form) {
     font-family: inherit;
     font-size: inherit;
     color: $DARK-COLOUR;
+    // code for border
+    border-left: 2px solid $SECONDARY-HIGHLIGHT;
   }
 
 
@@ -121,7 +124,7 @@ form:not(.custom-form) {
     height: 180px;
 
     @include above($LG-BREAKPOINT) {
-      height: 100px;
+      height: 200px;
     }
   }
 

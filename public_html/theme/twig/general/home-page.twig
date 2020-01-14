@@ -1,30 +1,37 @@
 {% extends 'template.twig' %}
 
 {% block content %}
-
-  <div class="container-fluid content-wrapper">
-    <div class="container main-content mb-4">
-
-      <div class="row">
-        <div class="col-12 col-lg-6 mb-4 mb-sm-0 mb-lg-0 pr-lg-0">
-          <div class="bg-white">
-            {% if page.contentTitle != '' %}
-              <h1>{{ page.contentTitle }}</h1>
-            {% endif %}
-            {{ page.content|raw }}
-            <span class="button mt-1">{{ page.buttonText }}
-            </span>
-          </div>
-        </div>
-        <div class="col-12 col-lg-6 d-lg-flex align-items-lg-end text-center">
-          {% if page.auxImage.getFullLink() != null %}
-            <div class=""><img src='{{ page.auxImage.getFullLink()|raw }}' alt="{{ constant('SITE_FROM_NAME') }} {{ page.title }}" class="aux-img"></div>
-          {% endif %}
-        </div>
+  <div class="container main-content">
+    {% if page.contentTitle != '' %}
+      <h1>{{ page.contentTitle }}</h1>
+    {% endif %}
+    <div class="row">
+      <div class="col-12 col-lg-6 mb-8 mb-lg-0">
+        {{ page.content|raw }}
       </div>
-
+      <div class="col-12 col-lg-6">
+        {% if page.image.tag() != null %}
+          <div class="float-right">
+            {{ page.image.tag()|raw }}
+          </div>
+        {% endif %}
+      </div>
     </div>
   </div>
+    <div class="container-fluid d-sm-none text-center px-0">
+        {{ clinicGallery.galleryItems[0].image.tag()|raw }}
+    </div>
 
+    <div class="container d-none d-sm-block home-carousel">
+        <div class="row no-gutters">
+            {% for item in clinicGallery.galleryItems|active %}
+                <div class="col-12 col-sm-4 ">
+                    <a href="/Projects/" class="project-img-container d-flex text-center">
+                        {{ item.image.tag()|raw }}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
 {% endblock %}

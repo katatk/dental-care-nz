@@ -138,30 +138,40 @@
     //  sticky header
     let header = $("header");
 
+    // get the height of the header when the doc loads
+      var orgHeaderHeight = header.height();
+
+    // add extra top padding to body so header sits in right place
+
     // call on scroll
     // become fixed after scrolling past certain point
     $(window).scroll(function() {
 
-      // make the opacity 0 in between
-      // if scroll past header, make opacity 0
+      // once scrolled past header
       if($(this).scrollTop() >= (header.height() + 20)) {
-        header.addClass("out-of-sight");
+        header.addClass("out-of-sight"); // makes opacity 0
 
-        // if header visible, remove opacity 0 class
+
+
+        // if header visible
       } else if($(this).scrollTop() < header.height()) {
+        $("body").css("padding-top", "0");
+        header.removeClass("shrink");
+        header.css("position","static");
         header.removeClass("out-of-sight");
       }
 
-      if($(this).scrollTop() >= 400) {
-
+      // if scroll is past
+      if($(this).scrollTop() >= 500) {
+        $("body").css("padding-top", orgHeaderHeight);
         header.addClass("shrink");
-        //
-        // $("body").css("padding-top", header.height());
+        header.css("position","fixed");
 
+
+        // if scroll less than
       } else if($(this).scrollTop() < 400) {
-        header.removeClass("shrink");
+      /*  header.removeClass("shrink");*/
 
-        // $("body").css("padding-top", 0);
       }
     });
 
@@ -268,10 +278,10 @@
   function startSlideshows() {
     $('.slider').slick({
       autoplay: true,
-      autoplaySpeed: 6000,
+      autoplaySpeed: 3000,
       speed: 3000,
       fade: true,
-      arrows: true,
+      arrows: false,
       dots: false,
       centerMode: false,
       centerPadding: 0,

@@ -29,8 +29,8 @@ video {
 body {
   margin: 0;
   padding: 0;
-  background: $LIGHT-BACKGROUND;
-  color: $PRIMARY-HIGHLIGHT;
+  background: #fff;
+  color: #000;
   font-family: $CONTENT-FONT;
 
   //noinspection CssUnknownProperty
@@ -38,7 +38,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 }
 
 @include headings {
@@ -51,21 +51,19 @@ body {
 
 h1 {
   font-size: 2.8rem;
+  text-transform: capitalize;
+  margin-bottom: 3rem;
+  /* @include underline(center);*/
 
   @include above($XL-BREAKPOINT) {
     font-size: 3.1rem;
   }
 
-
   @include above($LAPTOP-BREAKPOINT) {
     font-size: 3.8rem;
   }
-
-  text-transform: capitalize;
-  margin-bottom: 3rem;
-
-  @include underline(center);
 }
+
 
 h2 {
   font-size: 2.5rem;
@@ -76,9 +74,8 @@ h2 {
 }
 
 h3 {
-  font-size: 2.3rem;
-  color: $PRIMARY-HIGHLIGHT;
-  font-weight: 400;
+  font-size: 2.2rem;
+  font-weight: $LIGHT;
 }
 
 h4 {
@@ -100,7 +97,7 @@ p,
 ul,
 ol {
   margin-top: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 p,
@@ -169,7 +166,7 @@ button {
   padding: 1.75rem 3rem;
   font-weight: $REGULAR;
   text-transform: uppercase;
-  background: $PRIMARY-HIGHLIGHT;
+  background: $SECONDARY-HIGHLIGHT;
   color: #fff;
   font-family: $HEADING-FONT;
   cursor: pointer;
@@ -177,17 +174,19 @@ button {
   border: none;
 
   @include hover {
-    background: $PRIMARY-HOVER;
+    background: $SECONDARY-HOVER;
     text-decoration: none;
   }
 
 
   &.light {
     background: #fff;
-    color: $PRIMARY-HIGHLIGHT;
+    color: $SECONDARY-HIGHLIGHT;
+    border: 2px solid $SECONDARY-HIGHLIGHT;
 
     @include hover {
-      background: darken(#fff, 15%);
+      background: $SECONDARY-HIGHLIGHT;
+      color: #fff;
     }
   }
 }
@@ -435,7 +434,7 @@ footer {
   color: #000;
 
   p, a, span {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: #000;
   }
 
@@ -449,7 +448,7 @@ footer {
 
   h4 {
     font-size: 2.4rem;
-    font-weight: $BOLD;
+    /*font-weight: $BOLD;*/
     color: #000;
   }
 
@@ -471,7 +470,7 @@ footer {
   .sub-footer {
     background-color: $LIGHT-BACKGROUND;
     p, a, span {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       color: #000;
       margin-bottom: 1.5rem;
 
@@ -724,4 +723,19 @@ hr {
 
 .nowrap {
   flex-wrap: nowrap;
+}
+
+.contact-icons {
+  width: 20px;
+}
+
+.break-word {
+  white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  white-space: pre-wrap;       /* css-3 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  white-space: -webkit-pre-wrap; /* Newer versions of Chrome/Safari*/
+  word-break: break-all;
+  white-space: normal;
 }

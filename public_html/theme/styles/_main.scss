@@ -2,12 +2,12 @@
 // styles should go in here rather than bulking up _main.scss
 
 // to account for sticky nav, must add padding to top of body
-body {
+/*body {
   padding-top: 83.97px;
     @include above($NAV-BREAKPOINT) {
       padding-top: 0;
     }
-}
+}*/
 
 // banner
 
@@ -27,8 +27,7 @@ body {
 }
 
 .content-wrapper {
-  background: $LIGHT-BACKGROUND;
-  padding: 20px;
+  background: #fff;
 
   @include above($LAPTOP-BREAKPOINT) {
     padding-top: 0;
@@ -37,14 +36,18 @@ body {
 
 
   .main-content {
-    padding: 4rem;
+    padding-top: 4rem;
     background-color: #fff;
-    box-shadow: 0 0 46px 0 rgba(181, 210, 217, 0.4);
+   /* box-shadow: 0 0 46px 0 rgba(181, 210, 217, 0.4);*/
 
     @include above($LAPTOP-BREAKPOINT) {
-      position: relative;
-      top: -4rem;
-      margin-bottom: 6rem;
+      // so text doesn't stretch full width of content area
+      p {
+        max-width: 100ch;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
     }
 
 
@@ -90,6 +93,8 @@ body {
 // page specific
 
 .Home {
+
+
   .main-content {
     padding: 0;
     background-color: transparent;
@@ -161,3 +166,34 @@ body {
       color: #fff;
     }
   }
+
+  // team page
+
+.team-container {
+
+  .col-12 {
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+
+    .team-img {
+      display: flex;
+      text-align: center;
+      border: 1px solid $PRIMARY-HIGHLIGHT;
+    }
+  }
+
+  .team-text {
+    text-align: center;
+
+    h3 {
+      font-size: 2rem;
+      background-color: $PRIMARY-HIGHLIGHT;
+      padding: 0.5rem 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+}

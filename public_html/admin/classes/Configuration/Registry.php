@@ -14,6 +14,8 @@
 	use Redirect;
 	use Menus\Menu;
 	use Testimonial;
+	use Team;
+	use Treatments;
 	use Users\Administrator;
 	use Users\User;
 
@@ -43,6 +45,8 @@
 			"Payments" => false,
 			"Products" => false,
 			"Shipping" => false,
+			"Team" => true,
+			"Treatments" => true,
 			"Testimonials" => false,
 			"Users" => false
 		];
@@ -97,6 +101,8 @@
 				Testimonial::getAdminNavItem(),
 				Administrator::getAdminNavItem(),
 				Configuration::getAdminNavItem(),
+				Team::getAdminNavItem(),
+				Treatments::getAdminNavItem(),
 				Redirect::getAdminNavItem(),
 				new AdminNavItem("https://www.activehost.co.nz/Help-Guides/CMS-Help", "Help", [], true, [], true)
 			];

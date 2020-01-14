@@ -1,0 +1,15 @@
+<div class="team-container">
+    <div class="row">
+        {% for team in controller.callStatic('Team', 'loadAllActive') %}
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-8">
+                <div class="team-img">{{ team.image.tag()|raw }}</div>
+                <div class="team-text">
+                    <h3>{{ team.name }}</h3>
+                    <p>{{ team.description|nl2br }}</p>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+</div>
