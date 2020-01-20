@@ -8,11 +8,23 @@ use DatabaseObject\FormElement\Element;
 use DatabaseObject\FormElement\Text;
 use DatabaseObject\FormElement\Textarea;
 
+// added classes for slide
+use Database\QueryException;
+use DatabaseObject\Entity;
+use DatabaseObject\Property\LinkToProperty;
+use DatabaseObject\FormElement\ImageElement;
+use DatabaseObject\Property\ImageProperty;
+use DatabaseObject\FormElement\Hidden;
+use DatabaseObject\FormElement\BasicEditor;
+use Files\Image;
+/*use Pages\Page;*/
+use Slide;
+
 /**
  * Handles global configuration
  * @author    Callum Muir <callum@activatedesign.co.nz>
  */
-class Configuration extends Generator implements AdminNavItemGenerator
+class Configuration extends Generator implements AdminNavItemGenerator, Slide
 {
     const TABLE = "configuration";
     const ID_FIELD = "configuration_id";
@@ -40,6 +52,34 @@ class Configuration extends Generator implements AdminNavItemGenerator
     public $prefooterTextLink = '';
     public $footerHeadingOne = '';
     public $footerHeadingTwo = '';
+    public $ctabanner = '';
+
+    // cta banner
+    public $ctaTmage = null;
+    public $ctaResponsiveImage = null;
+    public $ctaTitle = '';
+    public $ctaSubtitle = '';
+    public $ctaDescription = '';
+    public $ctaLink = '';
+    public $ctaButton = '';
+
+   /* const HAS_ACTIVE = false;
+    const HAS_POSITION = false;*/
+
+    const DEFAULT_BUTTON_TEXT = "Find out more";
+
+    const CONTAINS_MULTIPLE = PAGE_SLIDE_HAS_MULTIPLE_IMAGES;
+    const IMAGES_LOCATION = DOC_ROOT . "/resources/images/page/";
+
+    const DESKTOP_IMAGE_WIDTH = PAGE_SLIDESHOW_WIDTH;
+    const DESKTOP_IMAGE_HEIGHT = PAGE_SLIDESHOW_HEIGHT;
+    const DESKTOP_IMAGE_RESIZE_TYPE = ImageProperty::CROP;
+
+    const RESPONSIVE_IMAGE_WIDTH = PAGE_SLIDESHOW_RESPONSIVE_WIDTH;
+    const RESPONSIVE_IMAGE_HEIGHT = PAGE_SLIDESHOW_RESPONSIVE_HEIGHT;
+    const RESPONSIVE_IMAGE_RESIZE_TYPE = ImageProperty::CROP;
+
+    public $active = false;
 
     //google analytics and tag manager
     public $analyticsId = '';
@@ -65,6 +105,17 @@ class Configuration extends Generator implements AdminNavItemGenerator
         static::addProperty(new Property('analyticsId', 'analytics_id', 'string'));
         static::addProperty(new Property('tagManagerId', 'tag_manager_id', 'string'));
         static::addProperty(new Property('googleSiteVerification', 'google_site_verification', 'string'));
+
+        // for the cta banner
+       /* static::addProperty(new LinkToProperty("page", "page_id", Page::class));*/
+        static::addProperty(new Property('ctaTitle', 'cta_title', 'html'));
+        static::addProperty(new Property('ctaSubtitle', 'cta_subtitle', 'string'));
+        static::addProperty(new Property('ctaDescription', 'cta_description', 'html'));
+        static::addProperty(new Property("ctaLink", "cta_link", "string"));
+        static::addProperty(new Property("ctaButton", "cta_button", "string"));
+        static::addProperty(new ImageProperty('ctaImage', 'cta_image', static::IMAGES_LOCATION, static::DESKTOP_IMAGE_WIDTH, static::DESKTOP_IMAGE_HEIGHT, static::DESKTOP_IMAGE_RESIZE_TYPE));
+        // don't need to make the property conditional, can just always be null.
+        static::addProperty(new ImageProperty('ctaResponsiveImage', 'cta_responsive_image', static::IMAGES_LOCATION, static::RESPONSIVE_IMAGE_WIDTH, static::RESPONSIVE_IMAGE_HEIGHT, static::RESPONSIVE_IMAGE_RESIZE_TYPE));
     }
 
     /**
@@ -165,6 +216,13 @@ class Configuration extends Generator implements AdminNavItemGenerator
         return static::getAdminEmail();
     }
 
+    public static function getScalingMessage()
+    {
+        $scalingMessage = 'For a banner: simply add one image. This image will be ' . (static::DESKTOP_IMAGE_RESIZE_TYPE === ImageProperty::CROP ? 'cropped' : 'scaled') . ' down to a maximum width of '.static::DESKTOP_IMAGE_WIDTH.' pixels and a maximum height of '.static::DESKTOP_IMAGE_HEIGHT.' pixels. <br />';
+
+        return $scalingMessage;
+    }
+
     /**
      * Sets the Form Elements for this object
      */
@@ -182,6 +240,36 @@ class Configuration extends Generator implements AdminNavItemGenerator
         $this->addFormElement(new Text('analyticsId', 'Google Analytics ID'), '3rd Party Integrations');
         $this->addFormElement(new Text('tagManagerId', 'Google Tag Manager ID'), '3rd Party Integrations');
         $this->addFormElement(new Text('googleSiteVerification', 'Google Site Verification'), '3rd Party Integrations');
+
+        if(static::CONTAINS_MULTIPLE)
+        {
+            $this->addFormElement((new ImageElement('ctaImage', 'Image'))->setIsRepresentative(true)->setClasses('half first'), 'Call to Action');
+
+            $this->addFormElement((new ImageElement('ctaResponsiveImage', 'Responsive Image (phones, tablets) <span>Optional</span>'))->setClasses('half'), 'Call to Action');
+        }
+        else
+        {
+            $imageElement = (new ImageElement('ctaImage', 'Image'))->setIsRepresentative(true)->setScalingMessage(static::getScalingMessage(), 'Call to Action');
+            $this->addFormElement($imageElement);
+        }
+
+        if (PAGE_SLIDESHOW_CAPTION)
+        {
+            $this->addFormElement((new BasicEditor('ctaTitle', 'Title <span>(optional)</span>')), 'Call to Action');
+            $this->addFormElement((new Text('ctaSubtitle', 'Sub Title <span>(optional)</span>')), 'Call to Action');
+            $this->addFormElement((new Textarea('ctaDescription', 'Description <span>(optional)</span>')), 'Call to Action');
+        }
+
+        if(PAGE_SLIDESHOW_LINK)
+        {
+            $this->addFormElement((new Text("ctaLink", "Link <span>(optional, if no link set, button will not display)</span>")), 'Call to Action');
+
+            if(PAGE_SLIDESHOW_BUTTON)
+            {
+                $this->getFormElements()['ctaLink']->setClasses('half first');
+                $this->addFormElement(((new Text("ctaButton", "Button text <span>(optional, if left blank, text will say 'Find out more')</span>"))->setClasses('half')), 'Call to Action');
+            }
+        }
     }
 
     /**
@@ -324,6 +412,87 @@ class Configuration extends Generator implements AdminNavItemGenerator
     public static function getAdminNavItem()
     {
         return new AdminNavItem(static::getAdminNavLink(), "Configuration", [static::class], Registry::isEnabled("Configuration"));
+    }
+
+    //endregion
+
+    //region Slide
+
+    /**
+     * Gets the image for this slide
+     * @return    Image    The image for this slide
+     */
+    public function getSlideImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    /**
+     * Gets the responsive image for this slide
+     *
+     * Can always return null. Template uses this to just output non-responsive code without caring
+     * why there is only one image (not enabled or not uploaded)
+     *
+     * @return    Image    The smaller image for this slide
+     */
+    public function getSmallScreenImage(): ?Image
+    {
+        return static::CONTAINS_MULTIPLE ? $this->responsiveImage : null;
+    }
+
+    /**
+     * Gets the caption for this slide
+     * @return    string    The caption for this slide
+     */
+    public function getSlideText(): string
+    {
+        $html = "";
+
+        if($this->ctaTitle !== '')
+        {
+            $html .= "<h2>";
+            $html .= nl2br($this->ctaTitle) . "\n";
+            $html .= "</h2>";
+        }
+
+        if($this->ctaSubtitle !== '')
+        {
+            $html .= "<p class='subtitle'>";
+            $html .= nl2br($this->ctaSubtitle) . "\n";
+            $html .= "</p>";
+        }
+
+        if($this->ctaDescription !== '')
+        {
+            $html .= "<p class='description'>";
+            $html .= nl2br($this->ctaDescription) . "\n";
+            $html .= "</p>";
+        }
+
+        // if button field not empty, create a button
+        if($this->ctaButton !== "")
+        {
+            $buttonText = static::DEFAULT_BUTTON_TEXT;
+
+            if($this->ctaButton !== "")
+            {
+                $buttonText = $this->ctaButton;
+            }
+
+            // if no link set, default to contact page
+            if($this->ctaLink !== "")
+            {
+                $buttonLink = $this->ctaLink;
+            }
+            else
+            {
+                $buttonLink = "Contact/";
+            }
+
+            $html .= "<div class='button-container'><a href='/" . $buttonLink . "' class='button light'>" . $buttonText . "</a></div>\n";
+        }
+
+        return $html;
     }
 
     //endregion

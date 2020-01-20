@@ -1,0 +1,32 @@
+<h1>
+	Register at {{ config.getSiteName() }}
+</h1>
+<form action="/Account/Action/Register/" method="post">
+	{% if message and not samePage %}
+		<p class="error message">
+			{{ message|raw }}
+		</p>
+	{% endif %}
+	{% include("forms/text-field.twig") with
+		{
+			"label": "Name",
+			"name": "name",
+			"value": user.name,
+			"required": true
+		} only %}
+	{% include("forms/email-field.twig") with
+		{
+			"label": "Email Address",
+			"name": "email",
+			"value": user.email,
+			"required": true
+		} only %}
+	{% include("forms/password-field.twig") with
+		{
+			"label": "Password",
+			"name": "password",
+			"required": true
+		} only %}
+	{% include("forms/captcha.twig") %}
+	{% include("forms/submit-button.twig") with {"label": "Register"} %}
+</form>

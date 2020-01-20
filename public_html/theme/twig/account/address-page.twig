@@ -1,0 +1,62 @@
+{% extends "account/sections/base-page.twig" %}
+{% block account_heading %}
+	Update your address
+{% endblock %}
+{% block account_content %}
+	<form action="/Account/Action/Update-Address/" method="post">
+		{% include ("forms/text-field.twig") with
+			{
+				"label": "Name (optional)",
+				"name": "shippingName",
+				"value": user.address.name
+			} only %}
+		{% include("forms/phone-field.twig") with
+			{
+				"label": "Phone Number (optional)",
+				"name": "phone",
+				"value": user.address.phone
+			} only %}
+		{% include("forms/text-field.twig") with
+			{
+				"label": "Address (optional)",
+				"name": "address",
+				"value": user.address.address,
+				"classes": "js-address"
+			} only %}
+		{% include("forms/text-field.twig") with
+			{
+				"label": "Suburb (optional)",
+				"name": "suburb",
+				"value": user.address.suburb,
+				"classes": "js-suburb"
+			} only %}
+		{% include("forms/text-field.twig") with
+			{
+				"label": "City/Town (optional)",
+				"name": "city",
+				"value": user.address.city,
+				"classes": "js-city"
+			} only %}
+		{% include("forms/text-field.twig") with
+			{
+				"label": "Postal Code (optional)",
+				"name": "postCode",
+				"value": user.address.postCode,
+				"classes": "js-post-code"
+			} only %}
+		{% include("forms/text-field.twig") with
+			{
+				"label": "Country (optional)",
+				"name": "country",
+				"value": user.address.country,
+				"classes": "js-country"
+			} only %}
+		{% include("forms/textarea.twig") with
+			{
+				"label": "Default delivery instructions (optional)",
+				"name": "deliveryInstructions",
+				"value": user.address.deliveryInstructions
+			} only %}
+		{% include("forms/submit-button.twig") with {"label": "Update"} %}
+	</form>
+{% endblock %}

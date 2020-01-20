@@ -5,7 +5,8 @@ $db-horizontal-padding: $horizontal-padding * 2;
 header {
   padding-top: 1rem;
   padding-bottom: 1rem;
-  z-index: 2;
+  z-index: 3;
+ /* position: fixed;*/
   top: 0;
   left: 0;
   background-color: #fff;
@@ -36,25 +37,17 @@ header {
   }
 
 
-  .phone {
-    font-size: 1.5rem;
-    font-weight: 600;
+  .icon-phone, .icon-email {
+    color: #fff;
+    font-size: 2rem;
+   /* font-weight: 600;*/
 
-    @include above($NAV-BREAKPOINT) {
-      font-size: 1.3rem;
-    }
-
-
-    @include above($LAPTOP-BREAKPOINT) {
-      font-size: 1.5rem;
-    }
   }
 }
 
 nav[class*="navbar-expand-"] {
   & > .container {
     @include above($NAV-BREAKPOINT) {
-      align-items: stretch;
       height: 100%;
       align-items: center;
     }
@@ -103,7 +96,7 @@ nav[class*="navbar-expand-"] {
         font-family: $CONTENT-FONT;
         text-transform: lowercase;
         text-align: center;
-        font-size: 1.6rem;
+        font-size: 1.8rem;
         padding: 1.5rem 0 1.5rem 2rem;
         display: inline-block;
         width: 100%;
@@ -310,22 +303,26 @@ nav[class*="navbar-expand-"] {
 }
 
 // the mobile dropdown
+// height should equal size of banner + many gap between banner/slideshow and the header
+$dropdown-nav-height: $SLIDESHOW-HEIGHT;
+$dropdown-nav-height-responsive: $SLIDESHOW-RESPONSIVE-HEIGHT;
+$dropdown-nav-height-home: $SLIDESHOW-HOMEPAGE-HEIGHT;
+
 .navbar-collapse {
   background-color: rgba($PRIMARY-HIGHLIGHT, 0.95);
   opacity: 0;
   visibility: hidden;
   position: absolute;
-  top: calc(100% + 1rem);
+  top: calc(100% + 1.2rem);
   left: 0;
   width: 100%;
-  height: 400px;
+  height: $dropdown-nav-height-responsive;
   justify-content: center;
   display: flex;
 
   @include above($LG-BREAKPOINT) {
-    height: 550px;
+    height: $dropdown-nav-height;
   }
-
 
   @include above($NAV-BREAKPOINT) {
     height: auto;
@@ -356,6 +353,7 @@ nav[class*="navbar-expand-"] {
   border: none;
   padding: 0.5rem;
   cursor: pointer;
+  position: relative;
   left: 0.5rem;
   margin-left: 3rem;
 
@@ -365,8 +363,8 @@ nav[class*="navbar-expand-"] {
 
   .navbar-toggler-icon {
     background-image: none;
-    width: 30px;
-    height: 22px;
+    width: 25px;
+    height: 18px;
     position: relative;
     cursor: pointer;
 
@@ -409,7 +407,7 @@ nav[class*="navbar-expand-"] {
     &:nth-child(1) {
       -webkit-transform: rotate(45deg);
       transform: rotate(45deg);
-      top: -2.1px;
+      top: 0;
       left: 0;
     }
 
@@ -421,7 +419,7 @@ nav[class*="navbar-expand-"] {
     &:nth-child(3) {
       -webkit-transform: rotate(-45deg);
       transform: rotate(-45deg);
-      top: 19px;
+      top: 18px;
       left: 0;
     }
   }
@@ -440,5 +438,26 @@ nav[class*="navbar-expand-"] {
 .d-custom-flex {
   @include above($NAV-BREAKPOINT) {
     display: flex;
+  }
+}
+
+// if clicked will close the menu
+#behind-popup {
+  width: 100%;
+  display: block;
+  background-color: rgba(255, 255, 255, 0.7);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-in, visibility 0.2s ease-in;
+  min-height: 100vh;
+  height: 100%;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
   }
 }

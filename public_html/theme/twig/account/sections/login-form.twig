@@ -1,0 +1,27 @@
+<h1>
+	Login to {{ config.getSiteName() }}
+</h1>
+<form action="/Account/Action/Login/" method="post">
+	{% if message and not samePage %}
+		<p class="error message">
+			{{ message|raw }}
+		</p>
+	{% endif %}
+	{% include("forms/text-field.twig") with
+		{
+			"label": "Email Address",
+			"name": "email",
+			"value": user.email,
+			"required": true
+		} only %}
+	{% include("forms/password-field.twig") with
+		{
+			"label": "Password",
+			"name": "password",
+			"required": true
+		} only %}
+	{% include("forms/submit-button.twig") with {"label": "Login"} %}
+	<p>
+		<a href="/Account/Reset-Password/">I've forgotten my password</a>
+	</p>
+</form>

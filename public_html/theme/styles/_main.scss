@@ -11,7 +11,7 @@
 
 // banner
 
-.banner {
+/*.banner {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -24,7 +24,7 @@
   @include above($LAPTOP-BREAKPOINT) {
     height: 788px;
   }
-}
+}*/
 
 .content-wrapper {
   background: #fff;
@@ -38,7 +38,7 @@
   .main-content {
     padding-top: 4rem;
     background-color: #fff;
-   /* box-shadow: 0 0 46px 0 rgba(181, 210, 217, 0.4);*/
+    /* box-shadow: 0 0 46px 0 rgba(181, 210, 217, 0.4);*/
 
     @include above($LAPTOP-BREAKPOINT) {
       // so text doesn't stretch full width of content area
@@ -47,9 +47,7 @@
         margin-left: auto;
         margin-right: auto;
       }
-
     }
-
 
     a:not(.button) {
       color: #000;
@@ -62,7 +60,7 @@
 }
 
 // hover effects for project photos
-@include above($LG-BREAKPOINT) {
+/*@include above($LG-BREAKPOINT) {
   a.project-img-container {
     display: flex;
     position: relative;
@@ -88,87 +86,9 @@
       transition: opacity 0.5s ease-in-out;
     }
   }
-}
+}*/
 
-// page specific
-
-.Home {
-
-
-  .main-content {
-    padding: 0;
-    background-color: transparent;
-    box-shadow: none;
-    position: static;
-    margin-bottom: 0;
-
-    @include above($LG-BREAKPOINT) {
-      margin-bottom: 6rem;
-    }
-
-
-    .col-12 {
-      @include above($LAPTOP-BREAKPOINT) {
-        position: relative;
-        top: -5rem;
-      }
-
-
-      &:first-child .bg-white {
-        padding: 4rem;
-        box-shadow: 0 0 46px 0 rgba(181, 210, 217, 0.4);
-      }
-    }
-  }
-}
-
-
-  .slideshow {
-    button.slick-arrow {
-      background-color: rgba(0, 0, 0, 0.9);
-      border-radius: 0;
-      top: auto;
-      width: 50px;
-      height: 50px;
-
-      &.slick-next {
-        right: auto;
-        left: calc(50% + 1px);
-
-        &::before {
-          left: calc(50% - 8px);
-        }
-      }
-
-      &.slick-prev {
-        right: calc(50% + 1px);
-        left: auto;
-
-        &::before {
-          right: calc(50% + 8px);
-        }
-      }
-
-      &::before {
-        width: 16px;
-        height: 16px;
-      }
-    }
-  }
-
-  .slide {
-    position: relative;
-
-    figcaption {
-      position: absolute;
-      bottom: 5px;
-      right: 5px;
-      color: #fff;
-    }
-  }
-
-  // team page
-
+// team page
 .team-container {
 
   .col-12 {
@@ -197,3 +117,89 @@
     }
   }
 }
+
+.Home {
+
+  .treatments-text {
+
+    a.activator {
+      background-color: $SECONDARY-HIGHLIGHT;
+      padding: 2rem 1rem;
+      @include hover {
+        background: $SECONDARY-HOVER;
+        text-decoration: none;
+      }
+    }
+
+    h3 {
+
+      &, & p {
+        color: #fff;
+        margin-bottom: 0;
+        text-transform: uppercase;
+        font-size: 1.8rem;
+      }
+    }
+
+    .fader {
+      display: none;
+      padding: 4rem 0 2rem;
+      border-bottom: 2px solid $SECONDARY-HIGHLIGHT;
+      border-top: 2px solid $SECONDARY-HIGHLIGHT;
+      width: calc(100% - 40px);
+      background-color: #fff;
+      z-index: 2;
+      position: absolute;
+      left: 20px;
+
+
+      // contact us/cta
+      a {
+        color: $SECONDARY-HIGHLIGHT;
+        @include hover {
+          color: $SECONDARY-HOVER;
+        }
+      }
+    }
+  }
+
+  .treatments-img {
+    img {
+      width: 100%;
+    }
+  }
+
+  // gallery caruousel
+  // so next row is hidden while js loads/if js is disabled
+  /*.arrow-container {
+    position: relative;
+  }
+*/
+
+  .row.home-carousel {
+   /* max-height: 353px; */// matches thumbnail height in universal
+    /*overflow: hidden;
+    position: static;*/
+  }
+
+  // light-gallery custom styles for gallery carousel
+  .lg-backdrop {
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+}
+
+// style differently if javascript
+/*
+.javascript {
+  .row.home-carousel {
+   position: relative;
+    overflow: visible;
+  }
+
+  .arrow-container {
+    position: static;
+  }
+}
+*/
+
+

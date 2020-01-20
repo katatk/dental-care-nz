@@ -2,52 +2,6 @@
   // let IS_DEBUG_IP = false; $.get('/processes/ajax/is-debug-ip.php', '', function(data){ IS_DEBUG_IP = data.result; }, 'json' ); // debugging helper
 
   $(document).ready(function() {
-    $('.gallery').lightGallery();
-    $('.product-images').lightGallery({
-      selector: '.image'
-    });
-
-    //forms
-    setupForms();
-
-    $(".popup").click(function(event) {
-      event.preventDefault();
-
-      // noinspection JSUnusedGlobalSymbols
-      $.featherlight($(this).attr('href') + '?popup', {
-        afterOpen: function() {
-          setupForms('.featherlight');
-        }
-      });
-    });
-
-    //featherlight form popup
-    $(".js-open-form").click(function(event) {
-      event.preventDefault();
-      var targetId = $(this).attr('href');
-
-      // fallback to something with .js-popup-form
-      var $clone = targetId.charAt(0) === '#' && targetId.length > 1 ? $(targetId).clone() : $(".js-popup-form").clone();
-
-      // remove better-dateinput-polyfill code and set the input back to type="date" so that
-      // polyfill gets reapplied in the new context when the form is added back to the page.
-      // otherwise element simply doesn't work, and may add a horizontal scrollbar to featherlight to boot.
-      $clone.find('dateinput-picker + input').removeAttr('style').attr('type', 'date').prevAll().remove();
-
-      $.featherlight($clone, {
-        variant: 'open-popup-form'
-      });
-
-      window.setTimeout(function() {
-        var $form = $('.featherlight.open-popup-form form');
-        setupForm($form);
-
-        $form.submit(function(event) {
-          event.preventDefault();
-          ajaxForm($(this), event);
-        });
-      }, 0);
-    });
 
     //Lightweight alternative to jQuery UI's accordion
     $(".js-fader").hide();
@@ -107,17 +61,47 @@
     });
 
     // kat's code
-    // animate hamburger
-    $('.navbar-toggler').click(function() {
-      $('.navbar-toggler-icon').toggleClass('open');
 
-      // toggle the show class for mobile menu
+    // functions for opening/closing menu
+    function closeMenu() {
+      $('.navbar-collapse').removeClass('show');
+      $('.navbar-toggler-icon').removeClass('open');
+      $('#close-menu').hide();
+      $('#main-toggler').animate({
+        opacity: 1
+      }, 500);
+      $('#behind-popup').css('visibility', 'hidden');
+    }
+
+    function openMenu() {
+      $('.navbar-collapse').addClass('show');
+      $('.navbar-toggler-icon').addClass('open');
+      $('#close-menu').show();
+      $('#main-toggler').animate({
+        opacity: 0
+      }, 0);
+      $('#behind-popup').css('visibility', 'visible');
+    }
+
+    $('.navbar-toggler').click(function() {
       if($('.navbar-collapse').hasClass('show')) {
-        $('.navbar-collapse').removeClass('show');
+        closeMenu();
       } else {
-        $('.navbar-collapse').addClass('show');
+        openMenu();
       }
     });
+
+    // click outside the menu to close it
+    $('#behind-popup').click(function() {
+      closeMenu();
+    });
+
+    let navLinks = $('.nav-link');
+    // close menu after clicking nav links
+    navLinks.click(function() {
+      setTimeout(closeMenu, 700);
+    });
+
 
     $('.dropdown-toggle').click(function() {
 
@@ -135,11 +119,19 @@
       }
     });
 
-    //  sticky header
-    let header = $("header");
 
     // get the height of the header when the doc loads
-      var orgHeaderHeight = header.height();
+
+      //  sticky header
+      let header = $("header");
+
+      if($(window).scrollTop() == 0) {
+        var orgHeaderHeight = header.outerHeight();
+      }
+
+
+    // set the padding top of the body equal to the height of the header
+   /* $("body").css("padding-top", orgHeaderHeight);*/
 
     // add extra top padding to body so header sits in right place
 
@@ -147,18 +139,25 @@
     // become fixed after scrolling past certain point
     $(window).scroll(function() {
 
+      // if header sticky as soon as scroll, use this block
+     /* if($(this).scrollTop() > 0) {
+        header.addClass("shrink");
+      } else {
+        header.removeClass("shrink");
+      }*/
+     // end block
+
+      // else if want to make header sticky after scrolling past certain point, use this block
       // once scrolled past header
       if($(this).scrollTop() >= (header.height() + 20)) {
         header.addClass("out-of-sight"); // makes opacity 0
-
-
 
         // if header visible
       } else if($(this).scrollTop() < header.height()) {
         $("body").css("padding-top", "0");
         header.removeClass("shrink");
-        header.css("position","static");
         header.removeClass("out-of-sight");
+        header.css("position","static");
       }
 
       // if scroll is past
@@ -167,12 +166,11 @@
         header.addClass("shrink");
         header.css("position","fixed");
 
-
         // if scroll less than
       } else if($(this).scrollTop() < 400) {
-      /*  header.removeClass("shrink");*/
-
+        header.removeClass("shrink");
       }
+      // end block
     });
 
 
@@ -200,40 +198,41 @@
 
     // smooth scroll
     // Select all links with hashes
-    // $('a[href*="#"]')
-    //   // Remove links that don't actually link to anything
-    //   .not('[href="#"]')
-    //   .not('[href="#0"]')
-    //   .click(function(event) {
-    //     // On-page links
-    //     if(
-    //       location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') &&
-    //       location.hostname == this.hostname
-    //     ) {
-    //       // Figure out element to scroll to
-    //       var target = $(this.hash);
-    //       target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-    //       // Does a scroll target exist?
-    //       if(target.length) {
-    //         // Only prevent default if animation is actually gonna happen
-    //         event.preventDefault();
-    //         $('html, body').animate({
-    //           scrollTop: target.offset().top
-    //         }, 800, function() {
-    //           // Callback after animation
-    //           // Must change focus!
-    //           var $target = $(target);
-    //           $target.focus();
-    //           if($target.is(":focus")) { // Checking if the target was focused
-    //             return false;
-    //           } else {
-    //             $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
-    //             $target.focus(); // Set focus again
-    //           };
-    //         });
-    //       }
-    //     }
-    //   });
+    $('a[href*="#"]')
+      // Remove links that don't actually link to anything
+      .not('[href="#"]')
+      .not('[href="#0"]')
+      .not('[href*="#treatment-"]')
+      .click(function(event) {
+        // On-page links
+        if(
+          location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') &&
+          location.hostname == this.hostname
+        ) {
+          // Figure out element to scroll to
+          var target = $(this.hash);
+          target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+          // Does a scroll target exist?
+          if(target.length) {
+            // Only prevent default if animation is actually gonna happen
+            event.preventDefault();
+            $('html, body').animate({
+              scrollTop: target.offset().top
+            }, 800, function() {
+              // Callback after animation
+              // Must change focus!
+              var $target = $(target);
+              $target.focus();
+              if($target.is(":focus")) { // Checking if the target was focused
+                return false;
+              } else {
+                $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+                $target.focus(); // Set focus again
+              };
+            });
+          }
+        }
+      });
 
     // end kat's code
 
@@ -261,16 +260,6 @@
     startSlideshows();
   });
 
-  // Testimonials slider
-
-  $('.carousel-inner').slick({
-    autoplay: true,
-    autoplaySpeed: 6000,
-    arrows: false,
-    dots: true,
-    // prevArrow: "<i class='icon icon-angle-left slide-arrows text-primary'></i>",
-    // nextArrow: "<i class='icon icon-angle-right slide-arrows text-primary'></i>",
-  });
 
   /*
    * initialise slideshow
@@ -318,9 +307,74 @@
       centerPadding: '0'
     });
 
+
+    // Gallery on the homepage
+    $('.home-carousel').slick({
+      autoplay: false,
+      autoplaySpeed: 6000,
+      arrows: true,
+      dots: false,
+      infinite: true,
+      slidesToShow: 3,
+      slidesToScroll: 3,
+      prevArrow: "<i class='icon icon-angle-left slide-arrows text-secondary'></i>",
+      nextArrow: "<i class='icon icon-angle-right slide-arrows text-secondary'></i>",
+    });
+
+
+
     //fix for .slider having a scrollbar like gap on the right side when there is no scrollbar
     $(window).trigger("resize");
   }
+
+  // featherlight gallery/forms
+  $('.gallery').lightGallery();
+  $('.product-images').lightGallery({
+    selector: '.image'
+  });
+
+  //forms
+  setupForms();
+
+  $(".popup").click(function(event) {
+    event.preventDefault();
+
+    // noinspection JSUnusedGlobalSymbols
+    $.featherlight($(this).attr('href') + '?popup', {
+      afterOpen: function() {
+        setupForms('.featherlight');
+      }
+    });
+  });
+
+  //featherlight form popup
+  $(".js-open-form").click(function(event) {
+    event.preventDefault();
+    var targetId = $(this).attr('href');
+
+    // fallback to something with .js-popup-form
+    var $clone = targetId.charAt(0) === '#' && targetId.length > 1 ? $(targetId).clone() : $(".js-popup-form").clone();
+
+    // remove better-dateinput-polyfill code and set the input back to type="date" so that
+    // polyfill gets reapplied in the new context when the form is added back to the page.
+    // otherwise element simply doesn't work, and may add a horizontal scrollbar to featherlight to boot.
+    $clone.find('dateinput-picker + input').removeAttr('style').attr('type', 'date').prevAll().remove();
+
+    $.featherlight($clone, {
+      variant: 'open-popup-form'
+    });
+
+    window.setTimeout(function() {
+      var $form = $('.featherlight.open-popup-form form');
+      setupForm($form);
+
+      $form.submit(function(event) {
+        event.preventDefault();
+        ajaxForm($(this), event);
+      });
+    }, 0);
+  });
+
 
   /**
    * Submits a form using ajax. To be called as the function for submit()

@@ -1,0 +1,23 @@
+{% extends 'template.twig' %}
+
+{% block content %}
+	<div class="container main-content cart">
+		<div class="native-sections">
+			<section class="native-sidebar">
+				<article class="sidebar-section register-section">
+					<h1>
+						Already have an account?
+					</h1>
+					<p>
+						<a class="button" href="/Account/Login/">Login Here</a>
+					</p>
+				</article>
+			</section>
+			<div class="native-main">
+				<div class="main-section">
+					{% include("account/sections/register-form.twig") %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

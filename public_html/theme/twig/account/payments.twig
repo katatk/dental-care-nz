@@ -1,0 +1,36 @@
+{% extends "account/account-page.twig" %}
+{% block account_heading %}
+	Your Payments
+{% endblock %}
+{% block account_content %}
+{% set pagination = user.getPaymentsPage() %}
+<div class="order-list">
+	{% for payment in pagination.results %}
+		<article class="order">
+			<div class="order-details">
+				<h2>
+					Invoice #{{ payment.invoiceNumber }}
+				</h2>
+				<p>
+					{{ payment.date|date("F j, Y") }}
+				</p>
+				<p>
+					<a href="/Account/Payment/{{ payment.localReference }}/">View payment details</a>
+				</p>
+			</div>
+			<ul class="order-items">
+				<p>Payment of {{ payment.amount|formatPrice }} via {{ payment.getGatewayLabel() }} </p>
+			</ul>
+		</article>
+	{% else %}
+		<p>
+			You have not made any orders, yet.
+		</p>
+	{% endfor %}
+</div>
+{% if pagination.totalPages > 1 %}
+	<div class="pagination">
+		{{ pagination.generatePageLinks("/Account/Orders/?page=")|raw }}
+	</div>
+{% endif %}
+{% endblock %}

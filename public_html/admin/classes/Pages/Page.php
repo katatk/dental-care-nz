@@ -32,6 +32,7 @@
 	use DatabaseObject\FormElement\Select;
 	use DatabaseObject\FormElement\Text;
 	use DatabaseObject\FormElement\Textarea;
+    use DatabaseObject\FormElement\BasicEditor;
 
 	use Exception;
 	use Files\Image;
@@ -148,7 +149,7 @@
 
 			static::addProperty(new Property('name','nav_text','string'));
 			static::addProperty(new Property('title','title','string'));
-			static::addProperty(new Property('contentTitle', 'content_title', 'string'));
+			static::addProperty(new Property('contentTitle', 'content_title', 'html')); // the user updates this
 			static::addProperty(new Property('content','content','html'));
 			static::addProperty(new Property('useSlideshow','has_slideshow','bool'));
 			// static::addProperty(new Property('bannerText','banner_text','string'));
@@ -226,7 +227,7 @@
 			// 	$this->addFormElement(new ImageElement('bannerImage', 'Banner', $this->bannerImage), "Content");
 			// }
 
-			$this->addFormElement(new Text("contentTitle", 'Content Title'), "Content");
+			$this->addFormElement(new BasicEditor("contentTitle", 'Content Title <span>(optional)</span>'), "Content");
 
 			$this->addFormElement(new Editor("content", 'Content'), "Content");
 

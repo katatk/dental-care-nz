@@ -3,7 +3,7 @@
 {% block content %}
   <div class="container main-content">
     {% if page.contentTitle != '' %}
-      <h1 class="text-center">{{ page.contentTitle }}</h1>
+      <h1 class="text-center">{{ page.contentTitle|raw }}</h1>
     {% endif %}
     <div class="row">
       <div class="col-12 mb-6">

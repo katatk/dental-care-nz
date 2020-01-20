@@ -1,50 +1,55 @@
 {% set slideAsBackground = true %}
-<div class="container mt-4">
-{% if slides | active | length > 0 %}
-  <section class="slideshow banner">
-    <div class="slider">
-      {% for slide in slides | active %}
-        {# Ignore slides without images #}
-        {% if slide.getSlideImage() != null %}
 
-          {% set slide_text = slide.getSlideText() %}
+<div class="container px-0 mt-xl-4">
+    {% if slides | active | length > 0 %}
+        <section class="slideshow banner">
+            <div class="slider">
+                {% for slide in slides | active %}
+                    {# Ignore slides without images #}
+                    {% if slide.getSlideImage() != null %}
 
-          {% if slideAsBackground %}
-            <figure class="slide">
-              {% if slide.getSmallScreenImage() != null %}
-                <div class="small-screen background-image" style="background-image: url({{ slide.getSmallScreenImage().getLink() }})"></div>
-              {% endif %}
-              <div class="big-screen background-image" style="background-image: url({{ slide.getSlideImage().getLink() }})"></div>
-              <div class="wrapper d-none d-md-block">
-                <div class="container h-100 d-flex flex-column justify-content-center">
-                  <div class="row h-100">
-                    <div class="col-12 col-md-5 offset-md-7 col-xl-4 offset-xl-8 text-container">
-                        <div class="text-container-inner">
-                          {% if slide_text != "" %}
-                            {{ slide_text|raw }}
-                          {% endif %}
-                        </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                        {% set slide_text = slide.getSlideText() %}
 
-            </figure>
-          {% else %}
-            <figure class="slide">
-              <picture>
-                <source 1="1" srcset="{{ slide.getSlideImage().getLink() }}" media="(min-width: {{ constant(" page_slideshow_responsive_width") + 1 }}px)"="PAGE_SLIDESHOW_RESPONSIVE_WIDTH" )=")" +="+" }}px)""="}}px)"""/>
-                {% if slide.getSmallScreenImage() != null %}
-                  <source srcset="{{ slide.getSmallScreenImage().getLink() }}"/>
-                {% endif %}
-                <img src="{{ slide.getSlideImage().getLink() }}" alt=""/>
-              </picture>
+                        {% if slideAsBackground %}
+                            <figure class="slide">
+                                {% if slide.getSmallScreenImage() != null %}
+                                    <div class="small-screen background-image"
+                                         style="background-image: url({{ slide.getSmallScreenImage().getLink() }})"></div>
+                                {% endif %}
+                                <div class="big-screen background-image" style="background-image: url({{ slide.getSlideImage().getLink() }})"></div>
+                                <div class="wrapper d-none d-md-block">
+                                    <div class="container h-100 d-flex flex-column">
+                                        <div class="row h-100">
+                                            {% if slide_text != "" %}
+                                                <div class="col-12 col-md-5 {% if (page.module == "Home") %} col-lg-4 offset-md-7 offset-lg-8 justify-content-center {% else %} justify-content-start {% endif %} text-container">
+                                                    <div class="text-container-inner">
+                                                        {% if slide_text != "" %}
+                                                            {{ slide_text|raw }}
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </figure>
+                        {% else %}
+                            <figure class="slide">
+                                <picture>
+                                    <source 1="1" srcset="{{ slide.getSlideImage().getLink() }}"
+                                            media="(min-width: {{ constant(" page_slideshow_responsive_width") + 1 }}px)"
+                                    ="PAGE_SLIDESHOW_RESPONSIVE_WIDTH" )=")" +="+" }}px)""="}}px)"""/>
+                                    {% if slide.getSmallScreenImage() != null %}
+                                        <source srcset="{{ slide.getSmallScreenImage().getLink() }}"/>
+                                    {% endif %}
+                                    <img src="{{ slide.getSlideImage().getLink() }}" alt=""/>
+                                </picture>
 
-            </figure>
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-    </div>
-  </section>
-{% endif %}
+                            </figure>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
 </div>

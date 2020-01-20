@@ -1,36 +1,42 @@
 {% extends 'template.twig' %}
 
 {% block content %}
-  <div class="container main-content">
-    {% if page.contentTitle != '' %}
-      <h1>{{ page.contentTitle }}</h1>
-    {% endif %}
-    <div class="row">
-      <div class="col-12 col-lg-6 mb-8 mb-lg-0">
-        {{ page.content|raw }}
-      </div>
-      <div class="col-12 col-lg-6">
-        {% if page.image.tag() != null %}
-          <div class="float-right">
-            {{ page.image.tag()|raw }}
-          </div>
+    <div class="container main-content">
+        {% if page.contentTitle != '' %}
+            <h1 class="text-center">{{ page.contentTitle|raw }}</h1>
         {% endif %}
-      </div>
+        <div class="row">
+            <div class="col-12 mb-8 mb-lg-0">
+                {{ page.content|raw }}
+            </div>
+            <a href="" name="Treatments" class="mb-8"></a>
+            <div class="col-12">
+                {% include 'general/sections/treatments.twig' %}
+            </div>
+        </div>
     </div>
-  </div>
+
+    {% include 'general/sections/cta-banner.twig' %}
+
     <div class="container-fluid d-sm-none text-center px-0">
         {{ clinicGallery.galleryItems[0].image.tag()|raw }}
     </div>
 
-    <div class="container d-none d-sm-block home-carousel">
-        <div class="row no-gutters">
-            {% for item in clinicGallery.galleryItems|active %}
-                <div class="col-12 col-sm-4 ">
-                    <a href="/Projects/" class="project-img-container d-flex text-center">
+    <a href="" name="Gallery"></a>
+    <div class="container-fluid px-0 arrow-container">
+        <div class="container d-none d-sm-block ">
+            <div class="row no-gutters  home-carousel gallery">
+                {% for item in clinicGallery.galleryItems|active %}
+                    <a id="image-{{ item.id }}" href="{{ item.image.getLink() }}"
+                       title="{{ item.title }}"
+                       data-src="{{ item.image.getLink() }}"
+                       data-thumb="{{ item.thumbnail.getLink() }}"
+                       data-sub-html="#image-{{ item.id }}-caption"
+                       class="project-img-container d-flex text-center col-12 col-sm-4 ">
                         {{ item.image.tag()|raw }}
                     </a>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 

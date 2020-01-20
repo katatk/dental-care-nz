@@ -1,0 +1,143 @@
+/* General standardised styles for native functionality like carts and users */
+
+@keyframes native-ajax-loading-animation
+{
+	0%
+	{
+		transform: rotate(0deg);
+	}
+	
+	100%
+	{
+		transform: rotate(360deg);
+	}
+}
+
+%native-loading
+{
+	position: relative;
+	
+	&:before
+	{
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: rgba($LIGHT-COLOUR, 0.5);
+	}
+	
+	&:after
+	{
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		vertical-align: middle;
+		border: 5px solid;
+		border-color: $PRIMARY-HIGHLIGHT $PRIMARY-HIGHLIGHT transparent transparent;
+		border-radius: 50%;
+		height: 50px;
+		margin-top: -30px;
+		margin-left: -30px;
+		width: 50px;
+		animation: native-ajax-loading-animation 1s linear infinite;
+		transition: opacity 0.2s;
+	}
+}
+
+.native-sections
+{
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	
+	@include responsive
+	{
+		align-items: stretch;
+		flex-direction: column;
+	}
+}
+
+.native-sidebar
+{
+	flex-shrink: 0;
+	margin-left: 35px;
+	min-width: 30%;
+	
+	order: 2;
+	
+	@include responsive
+	{
+		margin-bottom: 35px;
+		margin-left: 0;
+		min-width: auto;
+		
+		order: 0;
+	}
+	
+	.sidebar-section
+	{
+		border: 1px solid $LIGHT-BACKGROUND;
+		padding: 20px;
+		
+		&.loading
+		{
+			@extend %native-loading;
+		}
+	}
+	
+	h1
+	{
+		margin: -20px -20px 20px;
+		padding: 2rem;
+		background: $PRIMARY-HIGHLIGHT;
+		color: #FFF;
+	}
+	
+	.row
+	{
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 15px;
+		font-weight: bold;
+		
+		&.total
+		{
+			margin: 20px 0 0;
+			font-size: 20px;
+		}
+	}
+}
+
+.native-main
+{
+	flex-grow: 1;
+	
+	.main-section,
+	.payment-confirm-section
+	{
+		border: 1px solid $LIGHT-BACKGROUND;
+		margin-bottom: 30px;
+		padding: 30px;
+		
+		@include responsive
+		{
+			padding: 15px;
+		}
+	}
+	
+	h1
+	{
+		margin: -30px -30px 30px;
+		padding: 2rem;
+		background: $PRIMARY-HIGHLIGHT;
+		color: #FFF;
+		
+		@include responsive
+		{
+			margin: -15px -15px 15px;
+		}
+	}
+}

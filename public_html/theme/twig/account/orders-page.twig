@@ -1,0 +1,48 @@
+{% extends "account/sections/base-page.twig" %}
+{% block account_heading %}
+	Your Orders
+{% endblock %}
+{% block account_content %}
+	{% set pagination = user.getOrdersPage() %}
+	<div class="order-list">
+		{% for order in pagination.results %}
+			<article class="order">
+				<div class="order-details">
+					<h2>
+						Order #{{ order.reference }}
+					</h2>
+					<p>
+						{{ order.date|date("F j, Y") }}
+					</p>
+					<p>
+						<a href="/Account/Order/{{ order.reference }}/">View order details</a>
+					</p>
+					<p>
+						<a href="/Account/Action/Order-Again/{{ order.reference }}/">Order these items again</a>
+					</p>
+				</div>
+				<ul class="order-items">
+					{% for lineItem in order.getOrderDetailsNormalLineItems() %}
+						<li>
+							{{ lineItem.quantity }} ×
+							{% if lineItem.link is not null %}
+								<a href="{{ lineItem.link }}" class="item-title">{{ lineItem.title }}</a>
+							{% else %}
+								<span class="item-title">{{ lineItem.title }}</span>
+							{% endif %}
+						</li>
+					{% endfor %}
+				</ul>
+			</article>
+		{% else %}
+			<p>
+				You have not made any orders, yet.
+			</p>
+		{% endfor %}
+	</div>
+	{% if pagination.totalPages > 1 %}
+		<div class="pagination">
+			{{ pagination.generatePageLinks("/Account/Orders/?page=")|raw }}
+		</div>
+	{% endif %}
+{% endblock %}

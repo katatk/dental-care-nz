@@ -1,0 +1,45 @@
+{% set slide_text = config.getSlideText() %}
+
+<div class="container mb-8">
+    <section class="slideshow banner" id="cta-banner">
+        <div class="slider">
+            <figure class="slide">
+                {# if a responsive banner image is set, use that, else use main image #}
+                {% if config.ctaResponsiveImage != null %}
+                    <div class="small-screen background-image"
+                         style="background-image: url({{ config.ctaResponsiveImage.getLink() }})"></div>
+                {% endif %}
+                <div class="big-screen background-image"
+                     style="background-image: url({{ config.ctaImage.getLink() }})"></div>
+                <div class="wrapper d-none d-lg-block">
+                    <div class="container h-100 d-flex flex-column">
+                        <div class="row h-100">
+                            {% if slide_text != "" %}
+                                <div class="col-12 col-lg-6 justify-content-start text-container">
+                                    <div class="text-container-inner">
+                                        {% if slide_text != "" %}
+                                            {{ slide_text|raw }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </figure>
+        </div>
+    </section>
+
+
+    {% if slide_text != "" %}
+        <div class="d-lg-none bg-secondary p-8 mobile-cta-banner">
+
+
+            {% if slide_text != "" %}
+                {{ slide_text|raw }}
+            {% endif %}
+
+
+        </div>
+    {% endif %}
+</div>

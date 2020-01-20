@@ -1,0 +1,59 @@
+{% extends 'template.twig' %}
+
+{% block notifications %}{# message output in content #}{% endblock %}
+
+{% block content %}
+	<div class="container main-content cart">
+		<div class="native-sections">
+			{% if cartEnabled or paymentsEnabled %}
+				<section class="native-sidebar">
+					<article class="sidebar-section account-navigation">
+						<h1>
+							My Account
+						</h1>
+						<nav>
+							<ul>
+								{% if cartEnabled %}
+									<li>
+										<a href="/Account/">Account Details</a>
+									</li>
+									<li>
+										<a href="/Account/Address/">My Address</a>
+									</li>
+									<li>
+										<a href="/Account/Orders/">My Orders</a>
+									</li>
+								{% endif %}
+								{% if paymentsEnabled %}
+									<li>
+										<a href="/Account/Payments/">My Payments</a>
+									</li>
+								{% endif %}
+							</ul>
+						</nav>
+					</article>
+				</section>
+			{% endif %}
+			<div class="native-main">
+				{% block account_main %}
+					<div class="main-section">
+						{% block account_heading_block %}
+							<h1 class="cart-heading">
+								{% block account_heading %}{% endblock %}
+							</h1>
+						{% endblock %}
+						{% if message %}
+							<p class="message">
+								{{ message|raw }}
+							</p>
+						{% endif %}
+						<div class="cart-content">
+							{% block account_content %}{% endblock %}
+						</div>
+					</div>
+				{% endblock %}
+				{% block account_action %}{% endblock %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

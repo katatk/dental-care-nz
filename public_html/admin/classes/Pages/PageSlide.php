@@ -17,6 +17,7 @@
 	use DatabaseObject\Property\ImageProperty;
 	use DatabaseObject\FormElement\Hidden;
 	use DatabaseObject\FormElement\Text;
+    use DatabaseObject\FormElement\BasicEditor;
 	use Files\Image;
 	use Slide;
 
@@ -40,7 +41,7 @@
 		const PARENT_PROPERTY = 'page';
 		const HAS_AUTOCAST = true;
 
-		const DEFAULT_BUTTON_TEXT = "View";
+		const DEFAULT_BUTTON_TEXT = "Find out more";
 
 		const CONTAINS_MULTIPLE = PAGE_SLIDE_HAS_MULTIPLE_IMAGES;
 		const IMAGES_LOCATION = DOC_ROOT . "/resources/images/page/";
@@ -65,8 +66,8 @@
 		public $title = '';
 		public $subtitle = '';
 		public $description = '';
-		public $link = '';
-		public $button = "";
+		public $link = '/Contact';
+		public $button = '';
 
 		/**
 		 * Gets the array of Database Object Properties that determine how an Image interacts with the database
@@ -76,7 +77,7 @@
 			parent::properties();
 
 			static::addProperty(new LinkToProperty("page", "page_id", Page::class));
-			static::addProperty(new Property('title', 'title', 'string'));
+			static::addProperty(new Property('title', 'title', 'html'));
 			static::addProperty(new Property('subtitle', 'subtitle', 'string'));
 			static::addProperty(new Property('description', 'description', 'string'));
 			static::addProperty(new Property("link", "link", "string"));
@@ -116,19 +117,19 @@
 
 			if (PAGE_SLIDESHOW_CAPTION)
 			{
-				$this->addFormElement(new Text('title', 'Title <span>(optional)</span>'));
+				$this->addFormElement(new BasicEditor('title', 'Title <span>(optional)</span>'));
 				$this->addFormElement(new Text('subtitle', 'Sub Title <span>(optional)</span>'));
-				$this->addFormElement(new Text('description', 'Description <span>(optional)</span>'));
+				/*$this->addFormElement(new Text('description', 'Description <span>(optional)</span>'));*/
 			}
 
 			if(PAGE_SLIDESHOW_LINK)
 			{
-				$this->addFormElement(new Text("link", "Link <span>(optional)</span>"));
+				$this->addFormElement(new Text("link", "Link <span>(optional, if no link set, button will not display)</span>"));
 
 				if(PAGE_SLIDESHOW_BUTTON)
 				{
 					$this->getFormElements()['link']->setClasses('half first');
-					$this->addFormElement((new Text("button", "Button text <span>(optional, if no link set, button will link to contact page)</span>"))->setClasses('half'));
+					$this->addFormElement((new Text("button", "Button text <span>(optional, if left blank, text will say 'Find out more')</span>"))->setClasses('half'));
 				}
 			}
 		}

@@ -67,14 +67,15 @@
 	 *		anywhere (usually in the footer); triggers a checkbox to include pages on this menu
 	 */
 	define('PAGE_HAS_SLIDESHOW', true);
-	define('PAGE_SLIDE_HAS_MULTIPLE_IMAGES', false);
+	define('PAGE_SLIDE_HAS_MULTIPLE_IMAGES', true);
+
 	define('PAGE_SLIDESHOW_WIDTH', 1410);
 	define('PAGE_SLIDESHOW_HEIGHT', 353);
 	define('PAGE_SLIDESHOW_RESPONSIVE_WIDTH', 600);
 	define('PAGE_SLIDESHOW_RESPONSIVE_HEIGHT', 340);
-
 	define('PAGE_HOMEPAGE_SLIDESHOW_WIDTH', 1410);
 	define('PAGE_HOMEPAGE_SLIDESHOW_HEIGHT', 600);
+
 	define('PAGE_SLIDESHOW_CAPTION', true);
 	define('PAGE_SLIDESHOW_LINK', true);
 	define("PAGE_SLIDESHOW_BUTTON", true);
@@ -91,10 +92,10 @@
 	 * @var int GALLERY_THUMBNAIL_WIDTH (max) px referenced by new/replace image scripts
 	 * @var int GALLERY_THUMBNAIL_HEIGHT (max) px referenced by new/replace image scripts
 	 */
-	define('GALLERY_IMAGE_WIDTH', 468);
-	define('GALLERY_IMAGE_HEIGHT', 353);
-	define('GALLERY_THUMBNAIL_WIDTH', 300);
-	define('GALLERY_THUMBNAIL_HEIGHT', 300);
+	define('GALLERY_IMAGE_WIDTH', 1200);
+	define('GALLERY_IMAGE_HEIGHT', 800);
+	define('GALLERY_THUMBNAIL_WIDTH', 468);
+	define('GALLERY_THUMBNAIL_HEIGHT', 353);
 
 	/**
      * team photos

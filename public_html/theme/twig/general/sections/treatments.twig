@@ -1,0 +1,17 @@
+<div class="treatments-container">
+    <div class="row pos-relative">
+        {% for treatments in controller.callStatic('Treatments', 'loadAllActive') %}
+            <div class="col-12 col-sm-6 col-lg-4 mb-8 pos-static">
+                <div class="treatments-img d-flex">{{ treatments.image.tag()|raw }}</div>
+                <div class="treatments-text">
+                    <a class="activator js-activator bg-secondary text-center" href="#treatment-{{ treatments.id }}">
+                        <h3>{{ treatments.name|raw }}</h3></a>
+                    <div class="fader js-fader" id="treatment-{{ treatments.id }}">
+                        <p>{{ treatments.description|nl2br }}</p>
+                        <a href="Contact/" class="text-uppercase text-center d-block">Contact Us Today</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

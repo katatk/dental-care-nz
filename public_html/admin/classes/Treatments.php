@@ -8,6 +8,7 @@
 	use DatabaseObject\Property\Property;
 	use DatabaseObject\Property\ImageProperty;
 	use DatabaseObject\Column;
+    use DatabaseObject\FormElement\BasicEditor;
 
 	use DatabaseObject\FormElement\Text;
 	use DatabaseObject\FormElement\Textarea;
@@ -43,7 +44,7 @@
 		{
 			parent::properties();
 
-			static::addProperty(new Property("name", "name", "string"));
+			static::addProperty(new Property("name", "name", "html"));
 			static::addProperty(new Property("description", "description", "string"));
 			static::addProperty(new ImageProperty('image', 'image', static::IMAGE_LOCATION, static::IMAGE_WIDTH, static::IMAGE_HEIGHT, static::IMAGE_SCALE_TYPE));
 		}
@@ -75,7 +76,7 @@
 		{
 			parent::formElements();
 
-			$this->addFormElement(new Text('name', 'Name'));
+			$this->addFormElement(new BasicEditor('name', 'Name'));
 			$this->addFormElement(new Textarea('description', 'Description'));
 			$this->addFormElement(new ImageElement("image", 'Image', $this->image));
 

@@ -1,38 +1,33 @@
 {% extends 'template.twig' %}
 
 {% block content %}
-<div class="container pt-4 pb-10">
-	<div class="row bg-light-grey text-center py-8">
-		<div class="col-12">
-				{% if page.contentTitle != '' %}
-					<h1 class="text-center">{{ page.contentTitle }}</h1>
-				{% else %}
-					<h1 class="text-center">{{ page.title|raw }}</h1>
-				{% endif %}
-			</div>
-		</div>
+    <div class="container main-content">
 
-	<form class="searchResult searchForm mt-12 mb-10 text-center" action="" method="get">
-		<p>
-			<label for="SearchResult-search" class="d-inline-block mb-2 mb-md-0">Results for:</label>
-			<input type="text" name="search" class="mx-md-3" id="SearchResult-search" value="{{ search }}" />
-			<input type="submit" class="button mt-4 mt-md-0" value="Search" />
-		</p>
-		<p>
-			<input type="hidden" name="sort" value="{{ sort }}" />
-		</p>
-	</form>
-	{% if search == '' %}
-		Please enter a search term.
-	{% elseif results|length == 0 %}
-		Sorry no results were found. Please try a different search.
-	{% else %}
-		<section class="search-results">
-			{% for result in results %}
-				{{ result.generateOutput()|raw }}
-			{% endfor %}
-		</section><!-- end search results -->
-	{% endif %}
-	</div>
+            <h1>Search Results</h1>
+
+
+        <form class="searchResult searchForm mt-12 mb-10 " action="" method="get">
+            <p>
+                <label for="SearchResult-search" class="d-inline-block mb-2">Results for:</label>
+                <input type="text" name="search" class="d-block" id="SearchResult-search" value="{{ search }}"/>
+                <input type="submit" class="button mt-4" value="Search"/>
+            </p>
+            <p>
+                <input type="hidden" name="sort" value="{{ sort }}"/>
+            </p>
+        </form>
+        {% if search == '' %}
+            Please enter a search term.
+        {% elseif results|length == 0 %}
+			<p>Sorry no results were found. Please try a different search.</p>
+        {% else %}
+            <section class="search-results">
+                {% for result in results %}
+                    {{ result.generateOutput()|raw }}
+                {% endfor %}
+            </section><!-- end search results -->
+        {% endif %}
+
+    </div>
 
 {% endblock %}

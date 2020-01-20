@@ -1,0 +1,7 @@
+{% extends "account/account-page.twig" %}
+{% block account_heading %}
+	Payment #{{ payment.invoiceNumber }}
+{% endblock %}
+{% block account_content %}
+	{% include "payments/payment-details.twig" %}
+{% endblock %}

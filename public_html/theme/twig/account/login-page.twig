@@ -1,0 +1,25 @@
+{% extends 'template.twig' %}
+
+{% block content %}
+	<div class="cart container main-content">
+		<div class="native-sections">
+			{% if controller.getStaticConst('Users\\User', 'REGISTRATION_ENABLED') %}
+				<section class="native-sidebar">
+					<article class="sidebar-section register-section">
+						<h1>
+							Don't have an account?
+						</h1>
+						<p>
+							<a class="button" href="/Account/Register/">Create an account</a>
+						</p>
+					</article>
+				</section>
+			{% endif %}
+			<div class="native-main">
+				<div class="main-section">
+					{% include("account/sections/login-form.twig") %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

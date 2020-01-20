@@ -1,47 +1,11 @@
-// homepage-specific height
-
-.Home {
-  .slideshow, .slick-slider {
-
-    .text-container {
-      display: none;
-      text-align: center;
-
-      h2 {
-        color: #000;
-        font-size: 4rem;
-        line-height: 1.4;
-        max-width: 12ch;
-        font-weight: 500;
-      }
-
-      @include above($MD-BREAKPOINT) {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba($LIGHT-BACKGROUND, 0.7);
-      }
-    }
-
-    &.banner {
-      @include above($LAPTOP-BREAKPOINT) {
-        height: 600px;
-      }
-
-      .button {
-        @include above($NAV-BREAKPOINT) {
-          position: relative;
-          top: 4rem;
-        }
-      }
-    }
-  }
-}
-
 // applies to all slideshows by default
 .slideshow {
-  &.banner {
-    height: 353px;
+  &.banner, &.banner#cta-banner {
+    height: $SLIDESHOW-RESPONSIVE-HEIGHT;
+
+    @include above($LAPTOP-BREAKPOINT) {
+      height: $SLIDESHOW-HEIGHT;
+    }
   }
 
   // container
@@ -58,7 +22,7 @@
   $main-height: calc(100% * #{823 / 2560});
 
   // mobile sizing (fixed height)
-  $responsive-height: 340px;
+  $responsive-height: $SLIDESHOW-RESPONSIVE-HEIGHT;
 
   overflow: hidden;
   position: relative;
@@ -66,7 +30,7 @@
   /// mobile-first
   background: #fff;
 
-  &.banner {
+  &.banner, &.banner#cta-banner {
     .slick-slider {
       height: 353px;
     }
@@ -74,7 +38,7 @@
     .slick-list, .slick-track, .slider, .slide, .background-image {
       height: 100%;
     }
-  }
+
 
   // for wrapping text content
   .wrapper {
@@ -88,15 +52,27 @@
     margin: auto;
 
     .col-12 {
-      @include below(1600) {
+      /*@include below(1600) {
         padding-left: 11rem;
         padding-right: 11rem;
+      }*/
+
+      @include above(1349) {
+        .text-container-inner {
+          padding-left: 4rem;
+        }
+      }
+
+      @include below(1350) {
+        padding-left: 8rem;
+        padding-right: 8rem;
+
       }
 
 
       @include below($XL-BREAKPOINT) {
-        padding-left: 8rem;
-        padding-right: 8rem;
+        padding-left: 4rem;
+        padding-right: 4rem;
       }
 
 
@@ -106,32 +82,55 @@
       }
     }
 
-    h2 {
-      margin-bottom: 0.5rem;
-      color: #fff;
-      font-size: 4rem;
-      text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+    .text-container {
+      display: none;
+      text-align: left;
 
-      @include above($LG-BREAKPOINT) {
-        font-size: 5rem;
+      h2 {
+
+        margin-bottom: 0;
+
+        &:not(:last-child) {
+          margin-bottom: 4rem;
+        }
+
+        br {
+          display: none; // br tag from basic editor adds height
+        }
+
+        &, p {
+          max-width: 19ch;
+          text-transform: none;
+          color: #000;
+          font-size: 3rem;
+          text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+        }
       }
 
+      p {
+        text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+        font-size: 2.2rem;
+        text-transform: uppercase;
+        color: #000;
+        font-weight: 300;
+        margin-bottom: 0;
 
-      @include above($XL-BREAKPOINT) {
-        font-size: 6.6rem;
+        @include above($LG-BREAKPOINT) {
+          max-width: 50ch;
+        }
+      }
+
+      @include above($MD-BREAKPOINT) {
+        display: flex;
+        /*justify-content: center;*/
+        align-items: center;
+        background: $PRIMARY-HIGHLIGHT; // default to this if gradient not supported
+        background: linear-gradient(to right, $PRIMARY-HIGHLIGHT, 84%, transparent);
       }
     }
+  }
 
-    p {
-      text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
-      font-size: 2.4rem;
-      color: #fff;
-      font-weight: 300;
 
-      @include above($LG-BREAKPOINT) {
-        max-width: 50ch;
-      }
-    }
   }
 
   .slide + .slide {
@@ -159,7 +158,7 @@
 
     .background-image {
       width: 100%;
-      background-position: center bottom;
+      background-position: center center;
       background-repeat: no-repeat;
       background-size: cover;
 
@@ -227,17 +226,52 @@
       }
 
 
-      h2 {
-        margin: 0;
-        color: $LIGHT-COLOUR;
-        font-size: 36px;
-        font-family: $CONTENT-FONT;
+    }
+  }
+}
 
-        @include above($CONTENT-WIDTH) {
-          font-size: 60px;
-        }
+
+.slideshow {
+  button.slick-arrow {
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 0;
+    top: auto;
+    width: 50px;
+    height: 50px;
+
+    &.slick-next {
+      right: auto;
+      left: calc(50% + 1px);
+
+      &::before {
+        left: calc(50% - 8px);
       }
     }
+
+    &.slick-prev {
+      right: calc(50% + 1px);
+      left: auto;
+
+      &::before {
+        right: calc(50% + 8px);
+      }
+    }
+
+    &::before {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.slide {
+  position: relative;
+
+  figcaption {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    color: #fff;
   }
 }
 
@@ -355,3 +389,219 @@ ul.slick-dots {
     cursor: pointer;
   }
 }
+
+// homepage-specific height
+
+.Home {
+
+  .arrow-container {
+    overflow-y: hidden;
+    overflow-x: auto;
+    max-height: $SLIDESHOW-HEIGHT;
+  }
+
+
+  .home-carousel .slick-slide {
+    padding: 0;
+  }
+
+  .slideshow, .slick-slider {
+
+    &.banner {
+      @include above($NAV-BREAKPOINT) {
+        height: $SLIDESHOW-HOMEPAGE-HEIGHT;
+      }
+
+      .text-container {
+        text-align: center;
+
+        @include above($MD-BREAKPOINT) {
+          background: rgba($LIGHT-BACKGROUND, 0.7);
+        }
+
+        .text-container-inner {
+          padding-left: 0;
+        }
+
+        h2 {
+          &, p {
+            margin-bottom: 0;
+            color: #000;
+            font-size: 3rem;
+            line-height: 1.4;
+            font-weight: 500;
+            text-transform: none;
+
+            @include above($NAV-BREAKPOINT) {
+              font-size: 4rem;
+            }
+          }
+        }
+
+
+        // paragraph not nested in html
+        p {
+          max-width: 18ch;
+          @include above($LAPTOP-BREAKPOINT) {
+            max-width: 12ch;
+          }
+        }
+
+
+      }
+
+      .button {
+        margin-top: 4rem;
+        @include above($NAV-BREAKPOINT) {
+          margin-top: 0;
+          position: relative;
+          top: 4rem;
+        }
+      }
+    }
+  }
+}
+
+// use primary color in banner for pages with Page pagetype
+.Page {
+
+  .slideshow, .slick-slider {
+
+    &.banner .wrapper .text-container {
+
+      @include above($MD-BREAKPOINT) {
+        background: linear-gradient(to right, $SECONDARY-HIGHLIGHT, 84%, transparent);
+      }
+
+      h2, p {
+        color: #fff;
+      }
+
+    }
+  }
+}
+
+// styles for homepage carousel
+
+// carousel arrows
+.home-carousel {
+  .slide-arrows {
+    visibility: hidden;
+
+    @include above($MD-BREAKPOINT) {
+      visibility: visible;
+      display: inline-block;
+      font-size: 4rem;
+      position: absolute;
+      top: calc(50% - 25px);
+      cursor: pointer;
+    }
+
+    &.icon-angle-left {
+      left: -4rem;
+    }
+
+    &.icon-angle-right {
+      right: -4rem;
+    }
+  }
+}
+
+// specific styles for the cta banner
+
+.slideshow {
+
+  &.banner#cta-banner .wrapper .text-container {
+
+    @include above($MD-BREAKPOINT) {
+      background: linear-gradient(to right, $SECONDARY-HIGHLIGHT, 80%, transparent);
+    }
+
+    h2, p, h2 p {
+      color: #fff;
+    }
+
+    // titles
+    h2 {
+
+      &, &:not(:last-child) {
+        margin-bottom: 0;
+      }
+    }
+
+    h2 p {
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    p.subtitle {
+      margin-bottom: 1.5rem;
+    }
+
+    p.description {
+      text-transform: none;
+      color: #000;
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .button {
+      margin-top: 0;
+      background-color: $SECONDARY-HIGHLIGHT;
+      color: #fff;
+      border: 2px solid #fff;
+      position: static;
+
+    }
+  }
+}
+
+.mobile-cta-banner {
+
+  h2, p, h2 p {
+    color: #fff;
+  }
+
+  // titles
+  h2 {
+
+    &, &:not(:last-child) {
+      margin-bottom: 0;
+    }
+  }
+
+  h2 p {
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  p.subtitle {
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+
+  p.description {
+    text-transform: none;
+    color: #000;
+  }
+
+  .button-container {
+    text-align: center;
+  }
+
+  .button {
+    background-color: $SECONDARY-HIGHLIGHT;
+    color: #fff;
+    border: 2px solid #fff;
+    position: static;
+
+    @include hover {
+      background-color: #fff;
+      color: $SECONDARY-HIGHLIGHT;
+
+    }
+  }
+}
+
+
